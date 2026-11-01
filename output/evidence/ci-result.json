@@ -1,0 +1,28 @@
+{
+  "run_url": "https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41309323203",
+  "run_number": 3,
+  "head_sha": "ed36a64eef5155a126b663452d9d9f716dbb6bdc",
+  "conclusion": "success",
+  "sast_conclusion": "success",
+  "sca_conclusion": "success",
+  "npm_total": 0,
+  "dependencies": 150,
+  "vulnerable_dependencies": 0,
+  "eslint_files": 6,
+  "eslint_errors": 0,
+  "eslint_warnings": 0,
+  "action_warning_count": 0,
+  "action_notice_count": 0,
+  "artifact_digests": [
+    {
+      "name": "tests-and-sast",
+      "id": 13085026211,
+      "digest": "sha256:50b898f8ed11626599f70bacd84b0e06efdc04a16157abae1336cbfa053da87b"
+    },
+    {
+      "name": "dependency-security-reports",
+      "id": 13084497438,
+      "digest": "sha256:63a8be464b55297bc609fd4f81b8d731ec9cafce7b3167a1c100e9e2852a5836"
+    }
+  ]
+}

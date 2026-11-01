@@ -180,6 +180,36 @@ SAST анализирует исходный код. npm audit и Dependency-Che
 В `package.json` закреплен `overrides.minimatch=11.0.1`, lockfile обновлен.
 Это исправление dev-зависимости, а не исключение результатов из сканирования.
 
+### Предупреждения и их проверка
+
+В [первом запуске](https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41307390532)
+присутствовали реальные предупреждения об устаревшем Node 20 runtime самих
+GitHub Actions и вызовах `punycode`/`url.parse()` внутри старых Actions.
+Они не были находками SAST/SCA в приложении. Причина устранена обновлением
+проверенных SHA: checkout 7.0.1, setup-node 7.1.0, upload-artifact 7.0.2,
+cache 6.1.0; все четыре Actions объявляют `runs.using: node24`.
+Итоговый проверенный запуск: [Security CI #3](https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41309323203).
+Оба job завершились успешно; в их журналах нет предупреждений, сообщений
+deprecation и notices. Все 15 тестов пройдены; ESLint - 6 файлов, 0 ошибок,
+0 предупреждений; npm audit - 0 уязвимостей; Dependency-Check - 150 компонентов,
+0 компонентов с уязвимостями. Оригинальные отчеты приложены в `output/evidence/`.
+
+Сообщение `git init` о выборе имени начальной ветки - информационная подсказка
+Git. Checkout сразу переключает репозиторий на `main`; это не уязвимость,
+не ошибка проверки и не предупреждение GitHub Actions.
+Уведомление уровня `notice` о миграции `ubuntu-latest` на Ubuntu 26 относится
+к инфраструктуре GitHub, а не к уязвимости проекта. Для воспроизводимости
+окружение закреплено как `ubuntu-24.04` - тот же образ, на котором прошли проверки.
+Начальное имя ветки Git в одноразовом runner явно установлено в `main`.
+
+В `scripts/ci-summary.js` есть одно точечное исключение правила
+`security/detect-non-literal-fs-filename`: путь к summary берется из переменной
+`GITHUB_STEP_SUMMARY`, которую создает GitHub runner. Этот скрипт выполняется
+только в CI; HTTP-клиент API не управляет ни путем, ни окружением runner.
+Таким образом, предполагаемый анализатором путь от внешнего ввода к записи
+произвольного файла здесь отсутствует. Остальные security-правила включены,
+`--max-warnings 0` остается обязательным.
+
 Локальные проверки:
 
 ```bash
@@ -187,6 +217,23 @@ npm test
 npm run sast
 npm audit --audit-level=high
 ```
+
+## Материалы выполнения
+
+- [Отчет в PDF](output/pdf/otchet_lab1_secure_api_kozlov.pdf), оформленный по образцу лабораторной работы 2.
+- [Полный протокол curl](output/evidence/http-transcript.txt) и
+  [структурированные результаты](output/evidence/http-results.json): 10 проверок.
+- Скриншоты из GitHub Actions и отчеты сканеров находятся в `output/`.
+- [Разбор происхождения доказательств](output/evidence/README.md).
+- Исходник PDF: `report.typ`; сборка: `typst compile report.typ output/pdf/otchet_lab1_secure_api_kozlov.pdf`.
+- Сборка с предварительной проверкой доказательств: `python3 scripts/build_report.py`.
+  Для пересборки нужны Typst и шрифты Times New Roman и DejaVu Sans Mono.
+- Для повторного получения HTTP-доказательств: `python3 scripts/capture_http.py`
+  (нужны Node.js, Python 3, curl и свободный локальный порт 3001).
+
+![SAST: успешная проверка в Actions](output/screenshots/actions-sast.jpg)
+
+![SCA: успешная проверка в Actions](output/screenshots/actions-sca.jpg)
 
 ## Контрольные вопросы
 

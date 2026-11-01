@@ -1,0 +1,150 @@
+{
+  "captured_at": "2026-11-01T12:38:07.748180+00:00",
+  "node": "v26.0.0",
+  "passed": 10,
+  "failed": 0,
+  "records": [
+    {
+      "label": "Unauthenticated GET",
+      "command": "curl -i -X GET http://127.0.0.1:3001/api/data",
+      "request": null,
+      "expected": 401,
+      "status": 401,
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Sun, 01 Nov 2026 12:38:06 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Authentication required"
+      }
+    },
+    {
+      "label": "Unauthenticated POST",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/api/data",
+      "request": {
+        "title": "Denied",
+        "body": ""
+      },
+      "expected": 401,
+      "status": 401,
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Sun, 01 Nov 2026 12:38:06 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Authentication required"
+      }
+    },
+    {
+      "label": "Successful login",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/auth/login",
+      "request": {
+        "username": "vasily",
+        "password": "<REDACTED>"
+      },
+      "expected": 200,
+      "status": 200,
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=4; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 327\nETag: W/\"147-j0x+2BvwfkusArRoDTFs6UQkIT4\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "access_token": "<REDACTED: ephemeral JWT>",
+        "token_type": "Bearer",
+        "expires_in": 900
+      }
+    },
+    {
+      "label": "Incorrect password",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/auth/login",
+      "request": {
+        "username": "vasily",
+        "password": "<REDACTED>"
+      },
+      "expected": 401,
+      "status": 401,
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=3; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Invalid username or password"
+      }
+    },
+    {
+      "label": "SQL injection in login",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/auth/login",
+      "request": {
+        "username": "' OR 1=1 --",
+        "password": "<REDACTED>"
+      },
+      "expected": 401,
+      "status": 401,
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=2; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Invalid username or password"
+      }
+    },
+    {
+      "label": "Invalid JWT",
+      "command": "curl -i -X GET -H 'Authorization: Bearer <REDACTED>' http://127.0.0.1:3001/api/data",
+      "request": null,
+      "expected": 401,
+      "status": 401,
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer error=\"invalid_token\"\nContent-Type: application/json; charset=utf-8\nContent-Length: 36\nETag: W/\"24-GNDyEGK1yBKJB1sFHYU2n5ZGC54\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Invalid or expired token"
+      }
+    },
+    {
+      "label": "Create note and encode XSS",
+      "command": "curl -i -X POST -H 'Authorization: Bearer <REDACTED>' -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/api/data",
+      "request": {
+        "title": "XSS check",
+        "body": "<script>alert(1)</script>"
+      },
+      "expected": 201,
+      "status": 201,
+      "headers": "HTTP/1.1 201 Created\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 84\nETag: W/\"54-v2OyGCfpbWadTlqF3iadVG5t7I0\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "data": {
+          "id": 1,
+          "title": "XSS check",
+          "body": "&lt;script&gt;alert(1)&lt;/script&gt;"
+        }
+      }
+    },
+    {
+      "label": "Read own notes",
+      "command": "curl -i -X GET -H 'Authorization: Bearer <REDACTED>' http://127.0.0.1:3001/api/data",
+      "request": null,
+      "expected": 200,
+      "status": 200,
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 86\nETag: W/\"56-P2Av/gQ20GspmTTIH1GbxxR1rtw\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "data": [
+          {
+            "id": 1,
+            "title": "XSS check",
+            "body": "&lt;script&gt;alert(1)&lt;/script&gt;"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Second user login",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/auth/login",
+      "request": {
+        "username": "other-user",
+        "password": "<REDACTED>"
+      },
+      "expected": 200,
+      "status": 200,
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=1; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 327\nETag: W/\"147-eZcEYA0A8rqUT8rvGUnF4vmvQGY\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "access_token": "<REDACTED: ephemeral JWT>",
+        "token_type": "Bearer",
+        "expires_in": 900
+      }
+    },
+    {
+      "label": "Second user cannot read first user note",
+      "command": "curl -i -X GET -H 'Authorization: Bearer <REDACTED>' http://127.0.0.1:3001/api/data",
+      "request": null,
+      "expected": 200,
+      "status": 200,
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 11\nETag: W/\"b-EFAlOux7Kcr/ZEgGkn2r+oFAbu4\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "data": []
+      }
+    }
+  ]
+}
