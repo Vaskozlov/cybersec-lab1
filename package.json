@@ -1,0 +1,32 @@
+{
+  "name": "cybersec-lab1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure notes REST API for ITMO information security lab 1",
+  "type": "module",
+  "engines": {
+    "node": ">=24.13.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "create-user": "node scripts/create-user.js",
+    "test": "node --test --test-reporter=spec test/*.test.js",
+    "sast": "eslint src scripts --max-warnings 0",
+    "audit": "npm audit --audit-level=high"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "express-rate-limit": "8.7.2",
+    "helmet": "8.3.0",
+    "jose": "6.2.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.14.0",
+    "eslint-plugin-security": "4.2.1",
+    "globals": "17.14.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.1"
+  }
+}

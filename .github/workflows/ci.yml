@@ -1,0 +1,90 @@
+name: Security CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests-and-sast:
+    name: API tests and SAST
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Test API and attack scenarios
+        run: |
+          mkdir -p reports
+          npm test 2>&1 | tee reports/tests.txt
+      - name: SAST - ESLint security rules
+        run: |
+          npm run sast
+          npx --no-install eslint src scripts --max-warnings 0 -f json -o reports/eslint.json
+      - name: Publish security summary
+        if: always()
+        run: node scripts/ci-summary.js sast
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: tests-and-sast
+          path: reports/
+          if-no-files-found: error
+
+  sca:
+    name: SCA - OWASP Dependency-Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Audit all npm dependencies, including development tools
+        run: |
+          mkdir -p reports
+          npm audit --audit-level=high --json > reports/npm-audit.json
+      - name: Cache NVD vulnerability database
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .cache/dependency-check
+          key: odc-13-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: odc-13-${{ runner.os }}-
+      - name: Install verified OWASP Dependency-Check 13.0.0
+        run: |
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/odc.zip" \
+            https://github.com/dependency-check/DependencyCheck/releases/download/v13.0.0/dependency-check-13.0.0-release.zip
+          echo '44d920d1ec03e948df862a253f0912782a31b9beee8a7c8895b9cb95760176ed  '"$RUNNER_TEMP/odc.zip" | sha256sum --check
+          unzip -q "$RUNNER_TEMP/odc.zip" -d "$RUNNER_TEMP/odc"
+      - name: SCA - scan lockfile with npm advisory and NVD data
+        run: |
+          "$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \
+            --project cybersec-lab1 \
+            --scan package.json --scan package-lock.json \
+            --format HTML --format JSON --out reports \
+            --data .cache/dependency-check \
+            --nvdDatafeed 'https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz' \
+            --disableOssIndex --disableAssembly \
+            --failOnCVSS 7
+      - name: Publish security summary
+        if: always()
+        run: node scripts/ci-summary.js sca
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: dependency-security-reports
+          path: reports/
+          if-no-files-found: error
