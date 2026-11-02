@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-11-02T08:31:42.801402+00:00",
+  "items": [
+    {
+      "screenshot": "output/screenshots/actions-sast.jpg",
+      "source": "output/evidence/eslint.html",
+      "artifact_id": 13126536227,
+      "run_url": "https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41412819229",
+      "source_sha256": "a43c6fcbe001d694cd5e22290f5c5f8120ff979e2982801795da9b075fc1879d",
+      "image_sha256": "6de6dccbd9d5b72872b9ddafe28add29331cfa12f82b9703b1addc9948cb14b1",
+      "capture": "Unmodified native HTML artifact opened in the internal browser via a temporary localhost read-only server; screenshot crop only"
+    },
+    {
+      "screenshot": "output/screenshots/actions-sca.jpg",
+      "source": "output/evidence/dependency-check-report.html",
+      "artifact_id": 13125529627,
+      "run_url": "https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41412819229",
+      "source_sha256": "1253464a3e0c56d50a58b7f6e114103117e9a62cca10792555ae17f40e02b1a5",
+      "image_sha256": "51937d24dc67778ae4a7c129cad4bf7428cf854f1caf84b03cae63fe1232b541",
+      "capture": "Unmodified native HTML artifact opened in the internal browser via a temporary localhost read-only server; screenshot crop only"
+    },
+    {
+      "screenshot": "output/screenshots/actions-summary.jpg",
+      "source_url": "https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41412819229",
+      "image_sha256": "8f478d4b1119a46a1a4198d8c1a00fe0367cf16d4c067f91dddb7824aedb8bac",
+      "capture": "Internal browser screenshot of GitHub Actions run summary"
+    }
+  ]
+}

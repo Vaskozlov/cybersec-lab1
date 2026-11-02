@@ -1,12 +1,12 @@
 [
   {
     "name": "tests-and-sast",
-    "id": 13085026211,
-    "digest": "sha256:50b898f8ed11626599f70bacd84b0e06efdc04a16157abae1336cbfa053da87b"
+    "id": 13126536227,
+    "digest": "sha256:1880e9b8984df02873eda5f006bf6ba6992f57bf98f8d2ac6657ec6ca6e5e4db"
   },
   {
     "name": "dependency-security-reports",
-    "id": 13084497438,
-    "digest": "sha256:63a8be464b55297bc609fd4f81b8d731ec9cafce7b3167a1c100e9e2852a5836"
+    "id": 13125529627,
+    "digest": "sha256:8dbcbe30f7a3a063cfa18ea3d6b1c2cef67304df5bdd0b8fb5d842a0452f319c"
   }
 ]

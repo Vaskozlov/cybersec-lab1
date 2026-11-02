@@ -37,7 +37,7 @@
 #let tablecap(n, body) = block(above: 8pt, below: 5pt)[#text(size: 12pt)[Таблица #n - #body]]
 #let shot(file, n, body, height: 12cm) = block(width: 100%, breakable: false, above: 8pt, below: 10pt)[
   #if sys.inputs.at("draft", default: "false") == "true" {
-    block(width: 100%, height: height, stroke: .5pt)[#align(center + horizon)[Черновик: здесь будет снимок GitHub Actions]]
+    block(width: 100%, height: height, stroke: .5pt)[#align(center + horizon)[Черновик: здесь будет снимок отчета CI]]
   } else {
     align(center)[#image("output/screenshots/" + file, width: 100%, height: height, fit: "contain")]
   }
@@ -108,7 +108,8 @@
   Проверка результата состоит из функциональных HTTP-запросов через curl,
   автоматических тестов негативных сценариев, статического анализа исходного
   кода и анализа состава зависимостей. Отчеты сохраняются как артефакты
-  GitHub Actions.
+  GitHub Actions. Текущая верификация выполнена 02.11.2026;
+  исторические журналы от 01.11.2026 сохранены отдельно.
 ]
 #para[
   Исходный код, README с инструкциями и конфигурация pipeline опубликованы
@@ -145,9 +146,15 @@
   в `package.json` и `package-lock.json`.
 ]
 #para[
-  В базе `users` хранятся ID, имя и хэш пароля. Таблица `notes` содержит
-  ID, ссылку на владельца, заголовок и текст. Внешние ключи включены;
+  В базе `users` хранятся числовой ID, неизменяемый UUID `account_id`, имя
+  и хэш пароля. Таблица `notes` содержит ID, числовой `owner_id`, заголовок
+  и текст. Внешние ключи включены;
   таблицы используют строгую типизацию SQLite. Секреты и файл БД исключены из git.
+]
+#para[
+  Старая схема автоматически мигрируется в транзакции: пользователи получают
+  UUID, а числовые ID, хэши и заметки сохраняются. `account_id` уникален
+  и обязателен; изменение запрещено триггером. Повторное открытие БД сохраняет UUID.
 ]
 
 #pagebreak()
@@ -164,6 +171,11 @@
   Третьим методом выбран POST `/api/data`: он позволяет проверить запись
   пользовательского текста в БД и последующее безопасное чтение.
   Имя поля логина - `username`. Все тела запросов и ответов имеют формат JSON.
+]
+#note[
+  Некорректный JSON возвращает 400, превышение 16 KiB - 413,
+  неподдерживаемые charset или Content-Encoding - 415. Неожиданные ошибки
+  возвращают 500 без внутренних подробностей.
 ]
 #listing(1, [Установка и запуск из корня репозитория], ```text
 npm ci --ignore-scripts
@@ -199,7 +211,7 @@ curl -i -H "Authorization: Bearer $TOKEN" \
 ]
 #listing(3, [Параметризованные запросы], ```text
 db.prepare(
-  'SELECT id, password_hash FROM users WHERE username = ?'
+  'SELECT account_id, password_hash FROM users WHERE username = ?'
 ).get(username);
 
 db.prepare(
@@ -242,7 +254,7 @@ response.body: &lt;script&gt;alert(1)&lt;/script&gt;
 ]
 #para[
   Успешный вход формирует JWT с алгоритмом HS256 и сроком действия 900 секунд.
-  Поля: `sub` - ID пользователя, `iss` - cybersec-lab1, `aud` -
+  Поля: `sub` - UUID `account_id`, `iss` - cybersec-lab1, `aud` -
   cybersec-lab1-client, `iat` и `exp` - время выдачи и истечения,
   `jti` - случайный идентификатор. Пароль в токен не включается.
   Подпись обеспечивает целостность, но не шифрует содержимое.
@@ -258,10 +270,11 @@ await jwtVerify(token, jwtSecret, {
 });
 ```)
 #para[
-  После проверки подписи и claims сервер проверяет наличие пользователя
-  в БД. Middleware подключен ко всему префиксу `/api`. Клиент не выбирает
-  владельца записи: ID берется из проверенного `sub`.
-  Чтение выполняется с условием `WHERE owner_id = ?`.
+  После проверки JWT сервер находит пользователя по UUID `account_id`
+  и использует его числовой ID как `owner_id`. Middleware защищает весь `/api`;
+  клиент не выбирает владельца. Чтение ограничено `WHERE owner_id = ?`.
+  Старые токены с числовым `sub` после миграции отклоняются с 401.
+  Повторное использование числового ID не возвращает доступ старому JWT.
 ]
 #note[
   Дополнительные меры: предел JSON 16 KiB; ограничения полей заметки;
@@ -278,6 +291,11 @@ await jwtVerify(token, jwtSecret, {
   Предупреждения также блокируют успешное завершение анализатора.
 ]
 #para[
+  Для shell задан `bash` с `pipefail`: ошибка `npm test` не теряется при записи
+  через `tee`. CI summary и сборщик PDF независимо сверяют итоговый лог:
+  число тестов больше нуля, все пройдены, нет провалов, отмен, пропусков и todo.
+]
+#para[
   Job «SCA - OWASP Dependency-Check» выполняет npm audit и Dependency-Check
   13.0.0 по `package.json` и `package-lock.json`, включая инструменты разработки.
   SAST исследует исходный код; SCA сопоставляет компоненты с базами известных
@@ -285,7 +303,7 @@ await jwtVerify(token, jwtSecret, {
 ]
 #listing(6, [Команды проверок в workflow, сокращенно], ```text
 npm ci --ignore-scripts
-npm test
+npm test 2>&1 | tee reports/tests.txt
 npm run sast
 npm audit --audit-level=high --json
 FEED='https://nvd.nist.gov/feeds/json/cve/2.0/'
@@ -328,6 +346,8 @@ dependency-check.sh --project cybersec-lab1 \
   cell([Чтение собственной заметки]), cell([200]),
   cell([Вход второго пользователя]), cell([200]),
   cell([Чтение вторым пользователем: пустой список]), cell([200]),
+  cell([Неподдерживаемая кодировка JSON]), cell([415]),
+  cell([Неподдерживаемое Content-Encoding]), cell([415]),
 )
 #v(8pt)
 #listing(7, [Извлечение из протокола реального ответа], ```text
@@ -350,20 +370,28 @@ HTTP/1.1 200 OK
 #pagebreak()
 = Автоматические тесты и SAST
 #para[
-  Выполнено 15 автоматических тестов. Проверены выдача JWT, неверный пароль,
+  Выполнено #ci.tests_total автоматических тестов: пройдено #ci.tests_passed,
+  провалов #ci.tests_failed. Проверены выдача JWT, неверный пароль,
   SQL-инъекции, оба метода без токена, сохранение текста, экранирование XSS,
   изоляция пользователей, поврежденные и просроченные токены, неправильные
   алгоритм, issuer и audience, отсутствие exp, alg=none, ограничения JSON,
   HTTP-заголовки, rate limiter и отказ от короткого ключа.
 ]
+#note[
+  Регрессионные сценарии проверяют отказ старому JWT после удаления аккаунта
+  и повторного использования числового ID; миграцию БД с сохранением заметок;
+  ответы 415. Отрицательная проверка pipeline подтверждает, что провал команды
+  до `tee` блокирует следующий этап.
+]
 #para[
   Результат job: #ci.sast_conclusion.
   ESLint проанализировал #ci.eslint_files файлов: ошибок - #ci.eslint_errors,
   предупреждений - #ci.eslint_warnings.
-  Снимок GitHub Actions на рисунке 1 фиксирует фактический результат
-  проверки, а не локально нарисованную имитацию.
+  На рисунке 1 показан оригинальный HTML-отчет ESLint из артефакта GitHub Actions,
+  открытый во встроенном браузере. В нем видны все проверенные файлы и число
+  обнаруженных проблем. Отдельные счетчики errors и warnings сохранены в JSON.
 ]
-#shot("actions-sast.jpg", 1, [Результаты API tests and SAST в GitHub Actions], height: 13cm)
+#shot("actions-sast.jpg", 1, [HTML-отчет ESLint из артефакта Actions №#ci.run_number], height: 6cm)
 #note[
   Исходные журналы и машиночитаемые отчеты приложены в `output/evidence/`.
   Пустой список findings означает отсутствие обнаруженных правилом проблем,
@@ -378,6 +406,11 @@ HTTP/1.1 200 OK
   GHSA-g3hv-75wg-m249 описывает риск отказа в обслуживании при обработке
   специальных glob-шаблонов; исправлена версия 11.0.1 \[5\].
 ]
+#note[
+  Оригинальный отчет npm audit до исправления не был сохранен. Число пяти
+  moderate-записей относится к первоначальному локальному опыту 01.11.2026;
+  приложенные отчеты подтверждают только состояние после обновления.
+]
 #para[
   В `package.json` добавлено `overrides.minimatch=11.0.1`, lockfile обновлен.
   После изменения повторно успешно выполнены статический анализ и тесты.
@@ -385,11 +418,11 @@ HTTP/1.1 200 OK
 ]
 #para[
   Фактический итог npm audit: #ci.npm_total известных уязвимостей.
-  Dependency-Check: #ci.dependencies проанализированных компонентов;
+  Dependency-Check: #ci.dependencies уникальных проанализированных компонентов;
   #ci.vulnerable_dependencies компонентов с найденными уязвимостями.
   Результат SCA job: #ci.sca_conclusion.
 ]
-#shot("actions-sca.jpg", 2, [Результаты SCA в GitHub Actions], height: 12cm)
+#shot("actions-sca.jpg", 2, [HTML-отчет Dependency-Check из артефакта Actions №#ci.run_number], height: 8cm)
 
 #pagebreak()
 = Репозиторий и успешный pipeline
@@ -502,8 +535,9 @@ HTTP/1.1 200 OK
   Доступ к заметкам ограничен их владельцем.
 ]
 #para[
-  Штатное поведение и негативные сценарии подтверждены 15 автоматическими
-  тестами и #http.passed запросами curl. В CI включены статический анализ
+  Штатное поведение и негативные сценарии подтверждены автоматическими
+  тестами (#ci.tests_passed из #ci.tests_total) и #http.passed запросами curl.
+  В CI включены статический анализ
   и проверка зависимостей через npm audit и OWASP Dependency-Check.
   Обнаруженная уязвимая dev-зависимость обновлена; результаты представлены
   реальными журналами, отчетами и скриншотами GitHub Actions.

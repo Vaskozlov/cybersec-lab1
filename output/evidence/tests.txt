@@ -2,26 +2,35 @@
 > cybersec-lab1@1.0.0 test
 > node --test --test-reporter=spec test/*.test.js
 
-✔ passwords use salted scrypt; correct/wrong password verification (1895.130017ms)
-✔ valid login returns a Bearer token with a 15 minute lifetime (226.358602ms)
-✔ wrong password and unknown username return identical 401 responses (452.35173ms)
-✔ both data methods deny access without a token (5.170713ms)
-✔ SQL injection in login cannot bypass authentication (911.486313ms)
-✔ create and retrieve notes; SQL-looking text remains literal data (6.376754ms)
-✔ XSS payload is escaped on both creation and retrieval, exactly once (3.728106ms)
-✔ one user cannot read another user notes or assign their owner (6.151321ms)
-✔ malformed, forged, expired and wrong-algorithm tokens are rejected (6.673564ms)
-✔ wrong issuer/audience, missing expiry and nonexistent user are rejected (7.835509ms)
-✔ unsigned alg=none tokens are rejected (1.721548ms)
-✔ invalid JSON, types and oversized payloads produce bounded JSON errors (7.402171ms)
-✔ security response headers and JSON content type are present (2.43149ms)
-✔ login rate limiter returns 429 when the attempt budget is exhausted (235.623754ms)
-✔ application refuses a missing or short signing key (0.612501ms)
-ℹ tests 15
+✔ passwords use salted scrypt; correct/wrong password verification (1918.222685ms)
+✔ valid login returns a Bearer token with a 15 minute lifetime (219.745152ms)
+✔ wrong password and unknown username return identical 401 responses (433.467981ms)
+✔ both data methods deny access without a token (4.736167ms)
+✔ SQL injection in login cannot bypass authentication (887.778173ms)
+✔ create and retrieve notes; SQL-looking text remains literal data (4.788386ms)
+✔ XSS payload is escaped on both creation and retrieval, exactly once (3.60706ms)
+✔ one user cannot read another user notes or assign their owner (5.59262ms)
+✔ malformed, forged, expired and wrong-algorithm tokens are rejected (6.314569ms)
+✔ wrong issuer/audience, missing expiry and nonexistent user are rejected (8.072783ms)
+✔ unsigned alg=none tokens are rejected (1.549589ms)
+✔ invalid JSON, types and oversized payloads produce bounded JSON errors (6.878237ms)
+✔ unsupported JSON charset and content encoding return sanitized 415 errors (3.206652ms)
+✔ security response headers and JSON content type are present (1.524996ms)
+✔ login rate limiter returns 429 when the attempt budget is exhausted (225.094177ms)
+✔ application refuses a missing or short signing key (0.639254ms)
+✔ deleted account tokens stay invalid when a new account reuses its numeric ID (663.598142ms)
+✔ legacy databases migrate accounts atomically while preserving notes and login (479.484293ms)
+✔ a failed legacy migration rolls back the schema and original data (9.339426ms)
+✔ CI pipefail rejects an actual failing test before tee and stops the next stage (235.107194ms)
+✔ summary independently verifies and displays a complete passing test run (69.502314ms)
+✔ summary and independent Python parser reject failed, empty, skipped and incomplete test runs (1197.201678ms)
+✔ always-run summary preserves failed command outcomes even when saved counters look clean (72.871444ms)
+✔ report gate checks raw test and audit evidence instead of trusting a success summary (247.733736ms)
+ℹ tests 24
 ℹ suites 0
-ℹ pass 15
+ℹ pass 24
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 3963.278641
+ℹ duration_ms 5090.113223

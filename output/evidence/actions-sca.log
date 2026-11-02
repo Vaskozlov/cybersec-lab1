@@ -1,305 +1,312 @@
-﻿2026-11-01T13:04:04.2695882Z Current runner version: '2.338.2'
-2026-11-01T13:04:04.2729626Z ##[group]Runner Image Provisioner
-2026-11-01T13:04:04.2731005Z Hosted Compute Agent
-2026-11-01T13:04:04.2732002Z Version: 20261021.618
-2026-11-01T13:04:04.2733141Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
-2026-11-01T13:04:04.2734677Z Build Date: 2026-10-21T00:45:21Z
-2026-11-01T13:04:04.2735896Z Worker ID: {35d583f2-88c4-482b-ba28-ef56d0d5fb03}
-2026-11-01T13:04:04.2737147Z Region: eastus
-2026-11-01T13:04:04.2738137Z Cloud: Azure
-2026-11-01T13:04:04.2739091Z ##[endgroup]
-2026-11-01T13:04:04.2741326Z ##[group]Operating System
-2026-11-01T13:04:04.2742317Z Ubuntu
-2026-11-01T13:04:04.2743765Z 24.04.5
-2026-11-01T13:04:04.2744897Z LTS
-2026-11-01T13:04:04.2745878Z ##[endgroup]
-2026-11-01T13:04:04.2746846Z ##[group]Runner Image
-2026-11-01T13:04:04.2747791Z Image: ubuntu-24.04
-2026-11-01T13:04:04.2748859Z Version: 20261025.353.1
-2026-11-01T13:04:04.2750948Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
-2026-11-01T13:04:04.2753920Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
-2026-11-01T13:04:04.2755956Z ##[endgroup]
-2026-11-01T13:04:04.2757888Z ##[group]GITHUB_TOKEN Permissions
-2026-11-01T13:04:04.2760836Z Contents: read
-2026-11-01T13:04:04.2761897Z Metadata: read
-2026-11-01T13:04:04.2762908Z ##[endgroup]
-2026-11-01T13:04:04.2766354Z Secret source: Actions
-2026-11-01T13:04:04.2767809Z Cache mode: write
-2026-11-01T13:04:04.2769390Z Prepare workflow directory
-2026-11-01T13:04:04.3238774Z Prepare all required actions
-2026-11-01T13:04:04.3310063Z Getting action download info
-2026-11-01T13:04:04.5292746Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
-2026-11-01T13:04:04.6704810Z Download action repository 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
-2026-11-01T13:04:04.7976619Z Download action repository 'actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9' (SHA:55cc8345863c7cc4c66a329aec7e433d2d1c52a9)
-2026-11-01T13:04:04.9780466Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
-2026-11-01T13:04:05.2107292Z Complete job name: SCA - OWASP Dependency-Check
-2026-11-01T13:04:05.2950887Z ##[group]Run git config --global init.defaultBranch main
-2026-11-01T13:04:05.2951814Z [36;1mgit config --global init.defaultBranch main[0m
-2026-11-01T13:04:05.2978735Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:05.2980127Z ##[endgroup]
-2026-11-01T13:04:05.3507194Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-2026-11-01T13:04:05.3508049Z with:
-2026-11-01T13:04:05.3508530Z   persist-credentials: false
-2026-11-01T13:04:05.3509128Z   repository: Vaskozlov/cybersec-lab1
-2026-11-01T13:04:05.3513554Z   token: ***
-2026-11-01T13:04:05.3514036Z   ssh-strict: true
-2026-11-01T13:04:05.3514843Z   ssh-user: git
-2026-11-01T13:04:05.3515358Z   clean: true
-2026-11-01T13:04:05.3515851Z   sparse-checkout-cone-mode: true
-2026-11-01T13:04:05.3516430Z   fetch-depth: 1
-2026-11-01T13:04:05.3516901Z   fetch-tags: false
-2026-11-01T13:04:05.3517379Z   show-progress: true
-2026-11-01T13:04:05.3517858Z   lfs: false
-2026-11-01T13:04:05.3518306Z   submodules: false
-2026-11-01T13:04:05.3518793Z   set-safe-directory: true
-2026-11-01T13:04:05.3519350Z   allow-unsafe-pr-checkout: false
-2026-11-01T13:04:05.3519921Z ##[endgroup]
-2026-11-01T13:04:05.6943548Z Syncing repository: Vaskozlov/cybersec-lab1
-2026-11-01T13:04:05.6946077Z ##[group]Getting Git version info
-2026-11-01T13:04:05.6947084Z Working directory is '/home/runner/work/cybersec-lab1/cybersec-lab1'
-2026-11-01T13:04:05.6948926Z [command]/usr/bin/git version
-2026-11-01T13:04:05.6968162Z git version 2.56.0
-2026-11-01T13:04:05.6991808Z ##[endgroup]
-2026-11-01T13:04:05.6999460Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/3b5c6e11-bbe2-4ec3-8810-514d2b8e9115/.gitconfig'
-2026-11-01T13:04:05.7010797Z Temporarily overriding HOME='/home/runner/work/_temp/3b5c6e11-bbe2-4ec3-8810-514d2b8e9115' before making global git config changes
-2026-11-01T13:04:05.7014549Z Adding repository directory to the temporary git global config as a safe directory
-2026-11-01T13:04:05.7017791Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cybersec-lab1/cybersec-lab1
-2026-11-01T13:04:05.7056030Z Deleting the contents of '/home/runner/work/cybersec-lab1/cybersec-lab1'
-2026-11-01T13:04:05.7061176Z ##[group]Determining repository object format
-2026-11-01T13:04:05.7063073Z ##[endgroup]
-2026-11-01T13:04:05.7064052Z ##[group]Initializing the repository
-2026-11-01T13:04:05.7068194Z [command]/usr/bin/git init /home/runner/work/cybersec-lab1/cybersec-lab1
-2026-11-01T13:04:05.7232181Z Initialized empty Git repository in /home/runner/work/cybersec-lab1/cybersec-lab1/.git/
-2026-11-01T13:04:05.7243785Z [command]/usr/bin/git remote add origin https://github.com/Vaskozlov/cybersec-lab1
-2026-11-01T13:04:05.7296869Z ##[endgroup]
-2026-11-01T13:04:05.7298017Z ##[group]Disabling automatic garbage collection
-2026-11-01T13:04:05.7300462Z [command]/usr/bin/git config --local gc.auto 0
-2026-11-01T13:04:05.7336427Z ##[endgroup]
-2026-11-01T13:04:05.7342548Z ##[group]Setting up auth
-2026-11-01T13:04:05.7343536Z Removing SSH command configuration
-2026-11-01T13:04:05.7345954Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-01T13:04:05.7387633Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-01T13:04:05.7828731Z Removing HTTP extra header
-2026-11-01T13:04:05.7836577Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-01T13:04:05.7882416Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-01T13:04:05.8117907Z Removing includeIf entries pointing to credentials config files
-2026-11-01T13:04:05.8130183Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-01T13:04:05.8185559Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-01T13:04:05.8440998Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-11-01T13:04:05.8492755Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path /home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:05.8535678Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:05.8577631Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:05.8620072Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:05.8660281Z ##[endgroup]
-2026-11-01T13:04:05.8661244Z ##[group]Fetching the repository
-2026-11-01T13:04:05.8668036Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ed36a64eef5155a126b663452d9d9f716dbb6bdc:refs/remotes/origin/main
-2026-11-01T13:04:06.0793106Z From https://github.com/Vaskozlov/cybersec-lab1
-2026-11-01T13:04:06.0797568Z  * [new ref]         ed36a64eef5155a126b663452d9d9f716dbb6bdc -> origin/main
-2026-11-01T13:04:06.0804829Z [command]/usr/bin/git branch --list --remote origin/main
-2026-11-01T13:04:06.0846132Z   origin/main
-2026-11-01T13:04:06.0855641Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
-2026-11-01T13:04:06.0892951Z ed36a64eef5155a126b663452d9d9f716dbb6bdc
-2026-11-01T13:04:06.0900101Z ##[endgroup]
-2026-11-01T13:04:06.0902518Z ##[group]Determining the checkout info
-2026-11-01T13:04:06.0905570Z ##[endgroup]
-2026-11-01T13:04:06.0906906Z [command]/usr/bin/git sparse-checkout disable
-2026-11-01T13:04:06.0976057Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-11-01T13:04:06.1019602Z ##[group]Checking out the ref
-2026-11-01T13:04:06.1023704Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-11-01T13:04:06.1110151Z Reset branch 'main'
-2026-11-01T13:04:06.1118159Z branch 'main' set up to track 'origin/main'.
-2026-11-01T13:04:06.1126736Z ##[endgroup]
-2026-11-01T13:04:06.1178793Z [command]/usr/bin/git log -1 --format=%H
-2026-11-01T13:04:06.1215627Z ed36a64eef5155a126b663452d9d9f716dbb6bdc
-2026-11-01T13:04:06.1225398Z ##[group]Removing auth
-2026-11-01T13:04:06.1226756Z Removing SSH command configuration
-2026-11-01T13:04:06.1228906Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-01T13:04:06.1272747Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-01T13:04:06.1517516Z Removing HTTP extra header
-2026-11-01T13:04:06.1520276Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-01T13:04:06.1563741Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-01T13:04:06.1804631Z Removing includeIf entries pointing to credentials config files
-2026-11-01T13:04:06.1808213Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-01T13:04:06.1851243Z includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path
-2026-11-01T13:04:06.1855890Z includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path
-2026-11-01T13:04:06.1859592Z includeif.gitdir:/github/workspace/.git.path
-2026-11-01T13:04:06.1862527Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-11-01T13:04:06.1869704Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path
-2026-11-01T13:04:06.1899875Z /home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:06.1917392Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-011e87e5\-96ce\-45ae\-b20d\-b9bcb5fba8c3\.config
-2026-11-01T13:04:06.1968212Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path
-2026-11-01T13:04:06.2001934Z /home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:06.2013154Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-011e87e5\-96ce\-45ae\-b20d\-b9bcb5fba8c3\.config
-2026-11-01T13:04:06.2058139Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
-2026-11-01T13:04:06.2094078Z /github/runner_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:06.2103536Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-011e87e5\-96ce\-45ae\-b20d\-b9bcb5fba8c3\.config
-2026-11-01T13:04:06.2147187Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-11-01T13:04:06.2180981Z /github/runner_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config
-2026-11-01T13:04:06.2190535Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-011e87e5\-96ce\-45ae\-b20d\-b9bcb5fba8c3\.config
-2026-11-01T13:04:06.2237127Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-01T13:04:06.2495922Z Removing credentials config '/home/runner/work/_temp/git-credentials-011e87e5-96ce-45ae-b20d-b9bcb5fba8c3.config'
-2026-11-01T13:04:06.2504922Z ##[endgroup]
-2026-11-01T13:04:06.2921300Z ##[group]Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
-2026-11-01T13:04:06.2922937Z with:
-2026-11-01T13:04:06.2923785Z   node-version: 24
-2026-11-01T13:04:06.2924940Z   cache: npm
-2026-11-01T13:04:06.2925834Z   check-latest: false
-2026-11-01T13:04:06.2935878Z   token: ***
-2026-11-01T13:04:06.2936889Z   package-manager-cache: true
-2026-11-01T13:04:06.2937961Z ##[endgroup]
-2026-11-01T13:04:06.4642183Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
-2026-11-01T13:04:07.2755105Z ##[group]Environment details
-2026-11-01T13:04:09.3708432Z node: v24.22.1
-2026-11-01T13:04:09.3708875Z npm: 11.19.1
-2026-11-01T13:04:09.3729224Z yarn: 1.22.22
-2026-11-01T13:04:09.3730560Z ##[endgroup]
-2026-11-01T13:04:09.3730948Z [command]/opt/hostedtoolcache/node/24.22.1/x64/bin/npm config get cache
-2026-11-01T13:04:09.6490171Z /home/runner/.npm
-2026-11-01T13:04:09.7333067Z Cache hit for: node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0
-2026-11-01T13:04:09.9903894Z Received 3649420 of 3649420 (100.0%), 18.4 MBs/sec
-2026-11-01T13:04:09.9905201Z Cache Size: ~3 MB (3649420 B)
-2026-11-01T13:04:09.9931181Z [command]/usr/bin/tar -xf /home/runner/work/_temp/55a03a8c-27d7-4946-a112-a4d0cddb0fb3/cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --use-compress-program unzstd
-2026-11-01T13:04:10.0366465Z Cache restored successfully
-2026-11-01T13:04:10.0373830Z Cache restored from key: node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0
-2026-11-01T13:04:10.0535886Z ##[group]Run npm ci --ignore-scripts
-2026-11-01T13:04:10.0536276Z [36;1mnpm ci --ignore-scripts[0m
-2026-11-01T13:04:10.0664703Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:10.0664993Z ##[endgroup]
-2026-11-01T13:04:12.3926019Z 
-2026-11-01T13:04:12.3934111Z added 150 packages, and audited 151 packages in 2s
-2026-11-01T13:04:12.3934795Z 
-2026-11-01T13:04:12.3935035Z 52 packages are looking for funding
-2026-11-01T13:04:12.3935385Z   run `npm fund` for details
-2026-11-01T13:04:12.3938532Z 
-2026-11-01T13:04:12.3938783Z found 0 vulnerabilities
-2026-11-01T13:04:12.4398534Z ##[group]Run mkdir -p reports
-2026-11-01T13:04:12.4398893Z [36;1mmkdir -p reports[0m
-2026-11-01T13:04:12.4399266Z [36;1mnpm audit --audit-level=high --json > reports/npm-audit.json[0m
-2026-11-01T13:04:12.4419802Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:12.4420067Z ##[endgroup]
-2026-11-01T13:04:12.8691960Z ##[group]Run actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-2026-11-01T13:04:12.8692373Z with:
-2026-11-01T13:04:12.8692599Z   path: .cache/dependency-check
-2026-11-01T13:04:12.8692862Z   key: odc-13-Linux-41309323203
-2026-11-01T13:04:12.8693147Z   restore-keys: odc-13-Linux-
-2026-11-01T13:04:12.8693409Z   enableCrossOsArchive: false
-2026-11-01T13:04:12.8693663Z   fail-on-cache-miss: false
-2026-11-01T13:04:12.8693905Z   lookup-only: false
-2026-11-01T13:04:12.8694137Z   save-always: false
-2026-11-01T13:04:12.8694621Z ##[endgroup]
-2026-11-01T13:04:13.0731899Z Cache hit for restore-key: odc-13-Linux-41308128092
-2026-11-01T13:04:13.9029385Z Received 131804184 of 131804184 (100.0%), 164.1 MBs/sec
-2026-11-01T13:04:13.9031609Z Cache Size: ~126 MB (131804184 B)
-2026-11-01T13:04:13.9142598Z [command]/usr/bin/tar -xf /home/runner/work/_temp/dcbf74a3-794c-4222-b236-a828f52053a6/cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --use-compress-program unzstd
-2026-11-01T13:04:14.3861381Z Cache restored successfully
-2026-11-01T13:04:14.5365026Z Cache restored from key: odc-13-Linux-41308128092
-2026-11-01T13:04:14.5673858Z ##[group]Run curl --fail --location --retry 3 --output "$RUNNER_TEMP/odc.zip" \
-2026-11-01T13:04:14.5675227Z [36;1mcurl --fail --location --retry 3 --output "$RUNNER_TEMP/odc.zip" \[0m
-2026-11-01T13:04:14.5675998Z [36;1m  https://github.com/dependency-check/DependencyCheck/releases/download/v13.0.0/dependency-check-13.0.0-release.zip[0m
-2026-11-01T13:04:14.5676909Z [36;1mecho '44d920d1ec03e948df862a253f0912782a31b9beee8a7c8895b9cb95760176ed  '"$RUNNER_TEMP/odc.zip" | sha256sum --check[0m
-2026-11-01T13:04:14.5677569Z [36;1munzip -q "$RUNNER_TEMP/odc.zip" -d "$RUNNER_TEMP/odc"[0m
-2026-11-01T13:04:14.5697440Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:14.5697701Z ##[endgroup]
-2026-11-01T13:04:14.5824820Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-2026-11-01T13:04:14.5826035Z                                  Dload  Upload   Total   Spent    Left  Speed
-2026-11-01T13:04:14.5826500Z 
-2026-11-01T13:04:14.7020919Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-2026-11-01T13:04:14.7021871Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-2026-11-01T13:04:14.8519647Z 
-2026-11-01T13:04:14.9270073Z  30 28.0M   30 8862k    0     0  32.0M      0 --:--:-- --:--:-- --:--:-- 32.0M
-2026-11-01T13:04:14.9271056Z 100 28.0M  100 28.0M    0     0  81.3M      0 --:--:-- --:--:-- --:--:--  262M
-2026-11-01T13:04:14.9549231Z /home/runner/work/_temp/odc.zip: OK
-2026-11-01T13:04:15.1826047Z ##[group]Run "$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \
-2026-11-01T13:04:15.1826653Z [36;1m"$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \[0m
-2026-11-01T13:04:15.1827060Z [36;1m  --project cybersec-lab1 \[0m
-2026-11-01T13:04:15.1827422Z [36;1m  --scan package.json --scan package-lock.json \[0m
-2026-11-01T13:04:15.1827821Z [36;1m  --format HTML --format JSON --out reports \[0m
-2026-11-01T13:04:15.1828170Z [36;1m  --data .cache/dependency-check \[0m
-2026-11-01T13:04:15.1828642Z [36;1m  --nvdDatafeed 'https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz' \[0m
-2026-11-01T13:04:15.1829124Z [36;1m  --disableOssIndex --disableAssembly \[0m
-2026-11-01T13:04:15.1829444Z [36;1m  --failOnCVSS 7[0m
-2026-11-01T13:04:15.1849388Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:15.1849657Z ##[endgroup]
-2026-11-01T13:04:20.1745834Z [INFO] Checking for updates
-2026-11-01T13:04:20.1838783Z [INFO] Skipping NVD API Cache check since last check was within 4 hours.
-2026-11-01T13:04:20.1906149Z [INFO] Should skip RetireJSDataSource update since last update was within period PT24H.
-2026-11-01T13:04:20.1912746Z [INFO] Should skip HostedSuppressionsDataSource update since last update was within period PT2H.
-2026-11-01T13:04:20.1921790Z [INFO] Skipping Known Exploited Vulnerabilities update check since last check was within 24 hours.
-2026-11-01T13:04:20.1975502Z [INFO] Check for updates complete (22 ms)
-2026-11-01T13:04:20.3429072Z [INFO] 
-2026-11-01T13:04:20.3445684Z 
-2026-11-01T13:04:20.3450003Z Dependency-Check is an open source tool performing a best effort analysis of 3rd party dependencies; false positives and false negatives may exist in the analysis performed by the tool. Use of the tool and the reporting provided constitutes acceptance for use in an AS IS condition, and there are NO warranties, implied or otherwise, with regard to the analysis or its use. Any use of the tool and the reporting provided is at the user's risk. In no event shall the copyright holder or OWASP be held liable for any damages whatsoever arising out of or in connection with the use of this tool, the analysis performed, or the resulting report.
-2026-11-01T13:04:20.3454855Z 
-2026-11-01T13:04:20.3455065Z 
-2026-11-01T13:04:20.3456009Z    About ODC: https://dependency-check.github.io/DependencyCheck/general/internals.html
-2026-11-01T13:04:20.3457919Z    False Positives: https://dependency-check.github.io/DependencyCheck/general/suppression.html
-2026-11-01T13:04:20.3458640Z 
-2026-11-01T13:04:20.3458651Z 
-2026-11-01T13:04:20.3458855Z [INFO] Analysis Started
-2026-11-01T13:04:20.3525228Z [INFO] Finished File Name Analyzer (0 seconds)
-2026-11-01T13:04:20.6566029Z [INFO] Finished Node Package Analyzer (0 seconds)
-2026-11-01T13:04:20.6758501Z [INFO] Finished Dependency Merging Analyzer (0 seconds)
-2026-11-01T13:04:20.9269988Z [INFO] Finished Hint Analyzer (0 seconds)
-2026-11-01T13:04:23.3141496Z [INFO] Created CPE Index (2 seconds)
-2026-11-01T13:04:24.5016293Z [INFO] Finished CPE Analyzer (3 seconds)
-2026-11-01T13:04:24.5095486Z [INFO] Finished False Positive Analyzer (0 seconds)
-2026-11-01T13:04:24.5455698Z [INFO] Finished NVD CVE Analyzer (0 seconds)
-2026-11-01T13:04:24.5906287Z [INFO] Finished Node Audit Analyzer (0 seconds)
-2026-11-01T13:04:24.5977380Z [INFO] Finished Vulnerability Suppression Analyzer (0 seconds)
-2026-11-01T13:04:24.6233344Z [INFO] Finished Known Exploited Vulnerability Analyzer (0 seconds)
-2026-11-01T13:04:24.6451239Z [INFO] Finished Dependency Bundling Analyzer (0 seconds)
-2026-11-01T13:04:24.6495794Z [INFO] Finished Unused Suppression Rule Analyzer (0 seconds)
-2026-11-01T13:04:24.6517486Z [INFO] Analysis Complete (4 seconds)
-2026-11-01T13:04:24.7091984Z [INFO] Writing HTML report to: /home/runner/work/cybersec-lab1/cybersec-lab1/reports/dependency-check-report.html
-2026-11-01T13:04:25.0438703Z [INFO] Writing JSON report to: /home/runner/work/cybersec-lab1/cybersec-lab1/reports/dependency-check-report.json
-2026-11-01T13:04:25.2885093Z ##[group]Run node scripts/ci-summary.js sca
-2026-11-01T13:04:25.2885507Z [36;1mnode scripts/ci-summary.js sca[0m
-2026-11-01T13:04:25.2905097Z shell: /usr/bin/bash -e {0}
-2026-11-01T13:04:25.2905363Z ##[endgroup]
-2026-11-01T13:04:25.3326339Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-2026-11-01T13:04:25.3326769Z with:
-2026-11-01T13:04:25.3327016Z   name: dependency-security-reports
-2026-11-01T13:04:25.3327298Z   path: reports/
-2026-11-01T13:04:25.3327520Z   if-no-files-found: error
-2026-11-01T13:04:25.3327770Z   compression-level: 6
-2026-11-01T13:04:25.3327992Z   overwrite: false
-2026-11-01T13:04:25.3328210Z   include-hidden-files: false
-2026-11-01T13:04:25.3328467Z   archive: true
-2026-11-01T13:04:25.3328675Z ##[endgroup]
-2026-11-01T13:04:25.4807490Z With the provided path, there will be 3 files uploaded
-2026-11-01T13:04:25.4824695Z Artifact name is valid!
-2026-11-01T13:04:25.4825520Z Root directory input is valid!
-2026-11-01T13:04:25.6907607Z Uploading artifact: dependency-security-reports.zip
-2026-11-01T13:04:25.6948289Z Beginning upload of artifact content to blob storage
-2026-11-01T13:04:25.7794258Z Uploaded bytes 117622
-2026-11-01T13:04:25.7908586Z Finished uploading artifact content to blob storage!
-2026-11-01T13:04:25.7909773Z SHA256 digest of uploaded artifact is 63a8be464b55297bc609fd4f81b8d731ec9cafce7b3167a1c100e9e2852a5836
-2026-11-01T13:04:25.7911155Z Finalizing artifact upload
-2026-11-01T13:04:26.2019101Z Artifact dependency-security-reports successfully finalized. Artifact ID 13084497438
-2026-11-01T13:04:26.2020235Z Artifact dependency-security-reports has been successfully uploaded! Final size is 117622 bytes. Artifact ID is 13084497438
-2026-11-01T13:04:26.2023353Z Artifact download URL: https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41309323203/artifacts/13084497438
-2026-11-01T13:04:26.2195594Z Post job cleanup.
-2026-11-01T13:04:26.3596182Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --files-from manifest.txt --use-compress-program zstdmt
-2026-11-01T13:04:28.4755773Z Sent 79757312 of 131804576 (60.5%), 76.1 MBs/sec
-2026-11-01T13:04:29.4761344Z Sent 131804576 of 131804576 (100.0%), 62.8 MBs/sec
-2026-11-01T13:04:29.7192225Z Cache saved with key: odc-13-Linux-41309323203
-2026-11-01T13:04:29.7369212Z Post job cleanup.
-2026-11-01T13:04:29.8520633Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0, not saving cache.
-2026-11-01T13:04:29.8673521Z Post job cleanup.
-2026-11-01T13:04:29.9536951Z [command]/usr/bin/git version
-2026-11-01T13:04:29.9583026Z git version 2.56.0
-2026-11-01T13:04:29.9618838Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/e64d213d-50be-4929-aa49-e5b25ba9b97e/.gitconfig'
-2026-11-01T13:04:29.9628413Z Temporarily overriding HOME='/home/runner/work/_temp/e64d213d-50be-4929-aa49-e5b25ba9b97e' before making global git config changes
-2026-11-01T13:04:29.9630157Z Adding repository directory to the temporary git global config as a safe directory
-2026-11-01T13:04:29.9635742Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cybersec-lab1/cybersec-lab1
-2026-11-01T13:04:29.9679299Z Removing SSH command configuration
-2026-11-01T13:04:29.9686103Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-01T13:04:29.9752081Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-01T13:04:30.0041432Z Removing HTTP extra header
-2026-11-01T13:04:30.0047773Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-01T13:04:30.0091547Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-01T13:04:30.0378657Z Removing includeIf entries pointing to credentials config files
-2026-11-01T13:04:30.0389804Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-01T13:04:30.0447073Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-01T13:04:30.0852461Z Cleaning up orphan processes
-
+﻿2026-11-02T08:24:24.7401668Z Current runner version: '2.338.2'
+2026-11-02T08:24:24.7436022Z ##[group]Runner Image Provisioner
+2026-11-02T08:24:24.7437484Z Hosted Compute Agent
+2026-11-02T08:24:24.7438451Z Version: 20261021.618
+2026-11-02T08:24:24.7439554Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-02T08:24:24.7441159Z Build Date: 2026-10-21T00:45:21Z
+2026-11-02T08:24:24.7442317Z Worker ID: {5a3faf50-1f52-4f80-9cd4-8c66f615b1b6}
+2026-11-02T08:24:24.7444169Z Region: eastus
+2026-11-02T08:24:24.7445113Z Cloud: Azure
+2026-11-02T08:24:24.7446060Z ##[endgroup]
+2026-11-02T08:24:24.7448470Z ##[group]Operating System
+2026-11-02T08:24:24.7449598Z Ubuntu
+2026-11-02T08:24:24.7450789Z 24.04.5
+2026-11-02T08:24:24.7451713Z LTS
+2026-11-02T08:24:24.7452640Z ##[endgroup]
+2026-11-02T08:24:24.7453582Z ##[group]Runner Image
+2026-11-02T08:24:24.7454696Z Image: ubuntu-24.04
+2026-11-02T08:24:24.7455697Z Version: 20261025.353.1
+2026-11-02T08:24:24.7457898Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-02T08:24:24.7460963Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-11-02T08:24:24.7462760Z ##[endgroup]
+2026-11-02T08:24:24.7464674Z ##[group]GITHUB_TOKEN Permissions
+2026-11-02T08:24:24.7467608Z Contents: read
+2026-11-02T08:24:24.7468652Z Metadata: read
+2026-11-02T08:24:24.7469537Z ##[endgroup]
+2026-11-02T08:24:24.7472927Z Secret source: Actions
+2026-11-02T08:24:24.7474541Z Cache mode: write
+2026-11-02T08:24:24.7476042Z Prepare workflow directory
+2026-11-02T08:24:24.8037942Z Prepare all required actions
+2026-11-02T08:24:24.8085342Z Getting action download info
+2026-11-02T08:24:24.9867765Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-02T08:24:25.1215640Z Download action repository 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
+2026-11-02T08:24:25.2744432Z Download action repository 'actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9' (SHA:55cc8345863c7cc4c66a329aec7e433d2d1c52a9)
+2026-11-02T08:24:25.4763373Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-11-02T08:24:25.7212494Z Complete job name: SCA - OWASP Dependency-Check
+2026-11-02T08:24:25.8174286Z ##[group]Run git config --global init.defaultBranch main
+2026-11-02T08:24:25.8175272Z [36;1mgit config --global init.defaultBranch main[0m
+2026-11-02T08:24:25.8200933Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:24:25.8202085Z ##[endgroup]
+2026-11-02T08:24:25.8834126Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-02T08:24:25.8835056Z with:
+2026-11-02T08:24:25.8835519Z   persist-credentials: false
+2026-11-02T08:24:25.8836128Z   repository: Vaskozlov/cybersec-lab1
+2026-11-02T08:24:25.8841075Z   token: ***
+2026-11-02T08:24:25.8841562Z   ssh-strict: true
+2026-11-02T08:24:25.8842067Z   ssh-user: git
+2026-11-02T08:24:25.8842520Z   clean: true
+2026-11-02T08:24:25.8843004Z   sparse-checkout-cone-mode: true
+2026-11-02T08:24:25.8843594Z   fetch-depth: 1
+2026-11-02T08:24:25.8844056Z   fetch-tags: false
+2026-11-02T08:24:25.8844538Z   show-progress: true
+2026-11-02T08:24:25.8845032Z   lfs: false
+2026-11-02T08:24:25.8845471Z   submodules: false
+2026-11-02T08:24:25.8845959Z   set-safe-directory: true
+2026-11-02T08:24:25.8846514Z   allow-unsafe-pr-checkout: false
+2026-11-02T08:24:25.8847116Z ##[endgroup]
+2026-11-02T08:24:26.3879884Z Syncing repository: Vaskozlov/cybersec-lab1
+2026-11-02T08:24:26.3884458Z ##[group]Getting Git version info
+2026-11-02T08:24:26.3886995Z Working directory is '/home/runner/work/cybersec-lab1/cybersec-lab1'
+2026-11-02T08:24:26.3890922Z [command]/usr/bin/git version
+2026-11-02T08:24:26.3892702Z git version 2.56.0
+2026-11-02T08:24:26.3915152Z ##[endgroup]
+2026-11-02T08:24:26.3925552Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/918d273b-34cd-445d-9887-a41f7e5525c7/.gitconfig'
+2026-11-02T08:24:26.3938426Z Temporarily overriding HOME='/home/runner/work/_temp/918d273b-34cd-445d-9887-a41f7e5525c7' before making global git config changes
+2026-11-02T08:24:26.3944357Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T08:24:26.3949356Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cybersec-lab1/cybersec-lab1
+2026-11-02T08:24:26.3986596Z Deleting the contents of '/home/runner/work/cybersec-lab1/cybersec-lab1'
+2026-11-02T08:24:26.3991170Z ##[group]Determining repository object format
+2026-11-02T08:24:26.3996753Z ##[endgroup]
+2026-11-02T08:24:26.3999976Z ##[group]Initializing the repository
+2026-11-02T08:24:26.4003490Z [command]/usr/bin/git init /home/runner/work/cybersec-lab1/cybersec-lab1
+2026-11-02T08:24:26.4188826Z Initialized empty Git repository in /home/runner/work/cybersec-lab1/cybersec-lab1/.git/
+2026-11-02T08:24:26.4200491Z [command]/usr/bin/git remote add origin https://github.com/Vaskozlov/cybersec-lab1
+2026-11-02T08:24:26.4257190Z ##[endgroup]
+2026-11-02T08:24:26.4346074Z ##[group]Disabling automatic garbage collection
+2026-11-02T08:24:26.4348506Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-02T08:24:26.4354473Z ##[endgroup]
+2026-11-02T08:24:26.4356644Z ##[group]Setting up auth
+2026-11-02T08:24:26.4358125Z Removing SSH command configuration
+2026-11-02T08:24:26.4360669Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:24:26.4368225Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:24:26.4839483Z Removing HTTP extra header
+2026-11-02T08:24:26.4846099Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:24:26.4897975Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:24:26.5132812Z Removing includeIf entries pointing to credentials config files
+2026-11-02T08:24:26.5137010Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:24:26.5184898Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:24:26.5441702Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-02T08:24:26.5514160Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path /home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.5563913Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.5671882Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.5726484Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.5774590Z ##[endgroup]
+2026-11-02T08:24:26.5776922Z ##[group]Fetching the repository
+2026-11-02T08:24:26.5783292Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2366cfbded23bca64bd0877a42228ac493fdbe24:refs/remotes/origin/main
+2026-11-02T08:24:26.8394658Z From https://github.com/Vaskozlov/cybersec-lab1
+2026-11-02T08:24:26.8396701Z  * [new ref]         2366cfbded23bca64bd0877a42228ac493fdbe24 -> origin/main
+2026-11-02T08:24:26.8407883Z [command]/usr/bin/git branch --list --remote origin/main
+2026-11-02T08:24:26.8456250Z   origin/main
+2026-11-02T08:24:26.8465018Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-11-02T08:24:26.8503498Z 2366cfbded23bca64bd0877a42228ac493fdbe24
+2026-11-02T08:24:26.8509257Z ##[endgroup]
+2026-11-02T08:24:26.8511283Z ##[group]Determining the checkout info
+2026-11-02T08:24:26.8513830Z ##[endgroup]
+2026-11-02T08:24:26.8514999Z [command]/usr/bin/git sparse-checkout disable
+2026-11-02T08:24:26.8585993Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-02T08:24:26.8633593Z ##[group]Checking out the ref
+2026-11-02T08:24:26.8636671Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-02T08:24:26.8797274Z Reset branch 'main'
+2026-11-02T08:24:26.8803531Z branch 'main' set up to track 'origin/main'.
+2026-11-02T08:24:26.8812006Z ##[endgroup]
+2026-11-02T08:24:26.8867071Z [command]/usr/bin/git log -1 --format=%H
+2026-11-02T08:24:26.8905873Z 2366cfbded23bca64bd0877a42228ac493fdbe24
+2026-11-02T08:24:26.8916228Z ##[group]Removing auth
+2026-11-02T08:24:26.8917440Z Removing SSH command configuration
+2026-11-02T08:24:26.8921414Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:24:26.8969075Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:24:26.9210853Z Removing HTTP extra header
+2026-11-02T08:24:26.9213918Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:24:26.9267343Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:24:26.9518619Z Removing includeIf entries pointing to credentials config files
+2026-11-02T08:24:26.9523036Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:24:26.9567800Z includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path
+2026-11-02T08:24:26.9572201Z includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path
+2026-11-02T08:24:26.9576490Z includeif.gitdir:/github/workspace/.git.path
+2026-11-02T08:24:26.9579168Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-02T08:24:26.9583567Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path
+2026-11-02T08:24:26.9616740Z /home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.9629734Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-894d7b24\-9abc\-4f75\-9f37\-8d6387d090c5\.config
+2026-11-02T08:24:26.9690582Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path
+2026-11-02T08:24:26.9725599Z /home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.9736082Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/cybersec-lab1/cybersec-lab1/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-894d7b24\-9abc\-4f75\-9f37\-8d6387d090c5\.config
+2026-11-02T08:24:26.9783844Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-02T08:24:26.9820920Z /github/runner_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.9831643Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-894d7b24\-9abc\-4f75\-9f37\-8d6387d090c5\.config
+2026-11-02T08:24:26.9880559Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-02T08:24:26.9916849Z /github/runner_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config
+2026-11-02T08:24:26.9926187Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-894d7b24\-9abc\-4f75\-9f37\-8d6387d090c5\.config
+2026-11-02T08:24:26.9971673Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:24:27.0207594Z Removing credentials config '/home/runner/work/_temp/git-credentials-894d7b24-9abc-4f75-9f37-8d6387d090c5.config'
+2026-11-02T08:24:27.0217932Z ##[endgroup]
+2026-11-02T08:24:27.0519389Z ##[group]Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+2026-11-02T08:24:27.0521131Z with:
+2026-11-02T08:24:27.0521958Z   node-version: 24
+2026-11-02T08:24:27.0522857Z   cache: npm
+2026-11-02T08:24:27.0523723Z   check-latest: false
+2026-11-02T08:24:27.0532331Z   token: ***
+2026-11-02T08:24:27.0533237Z   package-manager-cache: true
+2026-11-02T08:24:27.0534279Z ##[endgroup]
+2026-11-02T08:24:27.1892016Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
+2026-11-02T08:24:27.7667933Z ##[group]Environment details
+2026-11-02T08:24:29.2697340Z node: v24.22.1
+2026-11-02T08:24:29.2697779Z npm: 11.19.1
+2026-11-02T08:24:29.2698055Z yarn: 1.22.22
+2026-11-02T08:24:29.2699137Z ##[endgroup]
+2026-11-02T08:24:29.2719855Z [command]/opt/hostedtoolcache/node/24.22.1/x64/bin/npm config get cache
+2026-11-02T08:24:29.4957356Z /home/runner/.npm
+2026-11-02T08:24:29.6115422Z Cache hit for: node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0
+2026-11-02T08:24:29.8689001Z Received 3649420 of 3649420 (100.0%), 18.3 MBs/sec
+2026-11-02T08:24:29.8689686Z Cache Size: ~3 MB (3649420 B)
+2026-11-02T08:24:29.8715114Z [command]/usr/bin/tar -xf /home/runner/work/_temp/5545d992-be48-4d8a-b9fd-dfab51e8fef1/cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --use-compress-program unzstd
+2026-11-02T08:24:29.9144009Z Cache restored successfully
+2026-11-02T08:24:29.9152197Z Cache restored from key: node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0
+2026-11-02T08:24:29.9300061Z ##[group]Run npm ci --ignore-scripts
+2026-11-02T08:24:29.9300850Z [36;1mnpm ci --ignore-scripts[0m
+2026-11-02T08:24:29.9367452Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:24:29.9367830Z ##[endgroup]
+2026-11-02T08:24:31.9112126Z 
+2026-11-02T08:24:31.9118924Z added 150 packages, and audited 151 packages in 2s
+2026-11-02T08:24:31.9119302Z 
+2026-11-02T08:24:31.9119530Z 52 packages are looking for funding
+2026-11-02T08:24:31.9119902Z   run `npm fund` for details
+2026-11-02T08:24:31.9124474Z 
+2026-11-02T08:24:31.9124749Z found 0 vulnerabilities
+2026-11-02T08:24:31.9588353Z ##[group]Run mkdir -p reports
+2026-11-02T08:24:31.9588718Z [36;1mmkdir -p reports[0m
+2026-11-02T08:24:31.9589094Z [36;1mnpm audit --audit-level=high --json > reports/npm-audit.json[0m
+2026-11-02T08:24:31.9609904Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:24:31.9610541Z ##[endgroup]
+2026-11-02T08:24:32.4091048Z ##[group]Run actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+2026-11-02T08:24:32.4091478Z with:
+2026-11-02T08:24:32.4091698Z   path: .cache/dependency-check
+2026-11-02T08:24:32.4091978Z   key: odc-13-Linux-41412819229
+2026-11-02T08:24:32.4092259Z   restore-keys: odc-13-Linux-
+2026-11-02T08:24:32.4092516Z   enableCrossOsArchive: false
+2026-11-02T08:24:32.4092772Z   fail-on-cache-miss: false
+2026-11-02T08:24:32.4093020Z   lookup-only: false
+2026-11-02T08:24:32.4093244Z   save-always: false
+2026-11-02T08:24:32.4093454Z ##[endgroup]
+2026-11-02T08:24:32.6131959Z Cache hit for restore-key: odc-13-Linux-41310028763
+2026-11-02T08:24:33.4607185Z Received 131804819 of 131804819 (100.0%), 157.1 MBs/sec
+2026-11-02T08:24:33.4616300Z Cache Size: ~126 MB (131804819 B)
+2026-11-02T08:24:33.4684930Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e39b1948-f02a-4d79-81fd-66fa0ce9d47a/cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --use-compress-program unzstd
+2026-11-02T08:24:33.9094009Z Cache restored successfully
+2026-11-02T08:24:33.9338480Z Cache restored from key: odc-13-Linux-41310028763
+2026-11-02T08:24:33.9605648Z ##[group]Run curl --fail --location --retry 3 --output "$RUNNER_TEMP/odc.zip" \
+2026-11-02T08:24:33.9606260Z [36;1mcurl --fail --location --retry 3 --output "$RUNNER_TEMP/odc.zip" \[0m
+2026-11-02T08:24:33.9606992Z [36;1m  https://github.com/dependency-check/DependencyCheck/releases/download/v13.0.0/dependency-check-13.0.0-release.zip[0m
+2026-11-02T08:24:33.9607887Z [36;1mecho '44d920d1ec03e948df862a253f0912782a31b9beee8a7c8895b9cb95760176ed  '"$RUNNER_TEMP/odc.zip" | sha256sum --check[0m
+2026-11-02T08:24:33.9608523Z [36;1munzip -q "$RUNNER_TEMP/odc.zip" -d "$RUNNER_TEMP/odc"[0m
+2026-11-02T08:24:33.9630845Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:24:33.9631216Z ##[endgroup]
+2026-11-02T08:24:33.9757656Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-11-02T08:24:33.9758611Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-11-02T08:24:33.9759063Z 
+2026-11-02T08:24:34.1148555Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-02T08:24:34.1149531Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-02T08:24:34.1150537Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-02T08:24:34.2198035Z 
+2026-11-02T08:24:34.2198977Z 100 28.0M  100 28.0M    0     0   114M      0 --:--:-- --:--:-- --:--:--  114M
+2026-11-02T08:24:34.2483734Z /home/runner/work/_temp/odc.zip: OK
+2026-11-02T08:24:34.4741274Z ##[group]Run "$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \
+2026-11-02T08:24:34.4741869Z [36;1m"$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \[0m
+2026-11-02T08:24:34.4742306Z [36;1m  --project cybersec-lab1 \[0m
+2026-11-02T08:24:34.4742666Z [36;1m  --scan package.json --scan package-lock.json \[0m
+2026-11-02T08:24:34.4743056Z [36;1m  --format HTML --format JSON --out reports \[0m
+2026-11-02T08:24:34.4743412Z [36;1m  --data .cache/dependency-check \[0m
+2026-11-02T08:24:34.4743876Z [36;1m  --nvdDatafeed 'https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz' \[0m
+2026-11-02T08:24:34.4744356Z [36;1m  --disableOssIndex --disableAssembly \[0m
+2026-11-02T08:24:34.4744669Z [36;1m  --failOnCVSS 7[0m
+2026-11-02T08:24:34.4763986Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:24:34.4764357Z ##[endgroup]
+2026-11-02T08:24:38.6815143Z [INFO] Checking for updates
+2026-11-02T08:24:39.6657009Z [INFO] Download Started for NVD Cache - https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-modified.json.gz
+2026-11-02T08:24:55.2282005Z [INFO] Begin database maintenance
+2026-11-02T08:25:05.3631606Z [INFO] Updated the CPE ecosystem on 145402 NVD records
+2026-11-02T08:25:06.4901659Z [INFO] End database maintenance (11263 ms)
+2026-11-02T08:25:06.4921794Z [INFO] Should skip RetireJSDataSource update since last update was within period PT24H.
+2026-11-02T08:25:06.5612628Z [INFO] Skipping Known Exploited Vulnerabilities update check since last check was within 24 hours.
+2026-11-02T08:25:06.5633282Z [INFO] Begin database defrag
+2026-11-02T08:25:13.7718564Z [INFO] End database defrag (7210 ms)
+2026-11-02T08:25:13.7900882Z [INFO] Check for updates complete (35108 ms)
+2026-11-02T08:25:13.9084981Z [INFO] 
+2026-11-02T08:25:13.9100928Z 
+2026-11-02T08:25:13.9135526Z Dependency-Check is an open source tool performing a best effort analysis of 3rd party dependencies; false positives and false negatives may exist in the analysis performed by the tool. Use of the tool and the reporting provided constitutes acceptance for use in an AS IS condition, and there are NO warranties, implied or otherwise, with regard to the analysis or its use. Any use of the tool and the reporting provided is at the user's risk. In no event shall the copyright holder or OWASP be held liable for any damages whatsoever arising out of or in connection with the use of this tool, the analysis performed, or the resulting report.
+2026-11-02T08:25:13.9139642Z 
+2026-11-02T08:25:13.9139653Z 
+2026-11-02T08:25:13.9140611Z    About ODC: https://dependency-check.github.io/DependencyCheck/general/internals.html
+2026-11-02T08:25:13.9141889Z    False Positives: https://dependency-check.github.io/DependencyCheck/general/suppression.html
+2026-11-02T08:25:13.9142598Z 
+2026-11-02T08:25:13.9142609Z 
+2026-11-02T08:25:13.9142831Z [INFO] Analysis Started
+2026-11-02T08:25:13.9143406Z [INFO] Finished File Name Analyzer (0 seconds)
+2026-11-02T08:25:14.1749672Z [INFO] Finished Node Package Analyzer (0 seconds)
+2026-11-02T08:25:14.1901624Z [INFO] Finished Dependency Merging Analyzer (0 seconds)
+2026-11-02T08:25:14.4230776Z [INFO] Finished Hint Analyzer (0 seconds)
+2026-11-02T08:25:16.5885174Z [INFO] Created CPE Index (2 seconds)
+2026-11-02T08:25:17.7056872Z [INFO] Finished CPE Analyzer (3 seconds)
+2026-11-02T08:25:17.7131399Z [INFO] Finished False Positive Analyzer (0 seconds)
+2026-11-02T08:25:17.7281877Z [INFO] Finished NVD CVE Analyzer (0 seconds)
+2026-11-02T08:25:17.7866166Z [INFO] Finished Node Audit Analyzer (0 seconds)
+2026-11-02T08:25:17.7921253Z [INFO] Finished Vulnerability Suppression Analyzer (0 seconds)
+2026-11-02T08:25:17.8111561Z [INFO] Finished Known Exploited Vulnerability Analyzer (0 seconds)
+2026-11-02T08:25:17.8349390Z [INFO] Finished Dependency Bundling Analyzer (0 seconds)
+2026-11-02T08:25:17.8373472Z [INFO] Finished Unused Suppression Rule Analyzer (0 seconds)
+2026-11-02T08:25:17.8392391Z [INFO] Analysis Complete (3 seconds)
+2026-11-02T08:25:17.8840130Z [INFO] Writing HTML report to: /home/runner/work/cybersec-lab1/cybersec-lab1/reports/dependency-check-report.html
+2026-11-02T08:25:18.1672059Z [INFO] Writing JSON report to: /home/runner/work/cybersec-lab1/cybersec-lab1/reports/dependency-check-report.json
+2026-11-02T08:25:18.4469813Z ##[group]Run node scripts/ci-summary.js sca
+2026-11-02T08:25:18.4471767Z [36;1mnode scripts/ci-summary.js sca[0m
+2026-11-02T08:25:18.4491210Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-02T08:25:18.4491561Z env:
+2026-11-02T08:25:18.4491759Z   AUDIT_OUTCOME: success
+2026-11-02T08:25:18.4491999Z   ODC_OUTCOME: success
+2026-11-02T08:25:18.4492229Z ##[endgroup]
+2026-11-02T08:25:18.5088862Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+2026-11-02T08:25:18.5089292Z with:
+2026-11-02T08:25:18.5089522Z   name: dependency-security-reports
+2026-11-02T08:25:18.5089797Z   path: reports/
+2026-11-02T08:25:18.5090018Z   if-no-files-found: error
+2026-11-02T08:25:18.5090531Z   compression-level: 6
+2026-11-02T08:25:18.5090755Z   overwrite: false
+2026-11-02T08:25:18.5090978Z   include-hidden-files: false
+2026-11-02T08:25:18.5091236Z   archive: true
+2026-11-02T08:25:18.5091442Z ##[endgroup]
+2026-11-02T08:25:18.6635260Z With the provided path, there will be 3 files uploaded
+2026-11-02T08:25:18.6636362Z Artifact name is valid!
+2026-11-02T08:25:18.6636867Z Root directory input is valid!
+2026-11-02T08:25:18.8549097Z Uploading artifact: dependency-security-reports.zip
+2026-11-02T08:25:18.8593099Z Beginning upload of artifact content to blob storage
+2026-11-02T08:25:18.9592786Z Uploaded bytes 117618
+2026-11-02T08:25:18.9738736Z Finished uploading artifact content to blob storage!
+2026-11-02T08:25:18.9740066Z SHA256 digest of uploaded artifact is 8dbcbe30f7a3a063cfa18ea3d6b1c2cef67304df5bdd0b8fb5d842a0452f319c
+2026-11-02T08:25:18.9741298Z Finalizing artifact upload
+2026-11-02T08:25:19.4400684Z Artifact dependency-security-reports successfully finalized. Artifact ID 13125529627
+2026-11-02T08:25:19.4402378Z Artifact dependency-security-reports has been successfully uploaded! Final size is 117618 bytes. Artifact ID is 13125529627
+2026-11-02T08:25:19.4405208Z Artifact download URL: https://github.com/Vaskozlov/cybersec-lab1/actions/runs/41412819229/artifacts/13125529627
+2026-11-02T08:25:19.4590397Z Post job cleanup.
+2026-11-02T08:25:19.6056465Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/cybersec-lab1/cybersec-lab1 --files-from manifest.txt --use-compress-program zstdmt
+2026-11-02T08:25:21.6881842Z Sent 58458112 of 131797275 (44.4%), 55.7 MBs/sec
+2026-11-02T08:25:22.6864075Z Sent 104988672 of 131797275 (79.7%), 50.0 MBs/sec
+2026-11-02T08:25:23.6862012Z Sent 131797275 of 131797275 (100.0%), 41.9 MBs/sec
+2026-11-02T08:25:23.8485945Z Cache saved with key: odc-13-Linux-41412819229
+2026-11-02T08:25:23.8644563Z Post job cleanup.
+2026-11-02T08:25:23.9825257Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-a3f58f75c24bb900b54a1e3d372f4a9c4c3228d1e123eabbd8336cae44fa98b0, not saving cache.
+2026-11-02T08:25:23.9969272Z Post job cleanup.
+2026-11-02T08:25:24.0851603Z [command]/usr/bin/git version
+2026-11-02T08:25:24.0906280Z git version 2.56.0
+2026-11-02T08:25:24.0938979Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/b8941c65-be31-410f-844a-db634fd4cca0/.gitconfig'
+2026-11-02T08:25:24.0950007Z Temporarily overriding HOME='/home/runner/work/_temp/b8941c65-be31-410f-844a-db634fd4cca0' before making global git config changes
+2026-11-02T08:25:24.0952032Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T08:25:24.0954875Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cybersec-lab1/cybersec-lab1
+2026-11-02T08:25:24.0990030Z Removing SSH command configuration
+2026-11-02T08:25:24.0996593Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:25:24.1037102Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:25:24.1315267Z Removing HTTP extra header
+2026-11-02T08:25:24.1321698Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:25:24.1372432Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:25:24.1627061Z Removing includeIf entries pointing to credentials config files
+2026-11-02T08:25:24.1635515Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:25:24.1682702Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:25:24.2093430Z Cleaning up orphan processes

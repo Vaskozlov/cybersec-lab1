@@ -1,7 +1,7 @@
 {
-  "captured_at": "2026-11-01T12:38:07.748180+00:00",
+  "captured_at": "2026-11-02T08:23:16.621950+00:00",
   "node": "v26.0.0",
-  "passed": 10,
+  "passed": 12,
   "failed": 0,
   "records": [
     {
@@ -10,7 +10,7 @@
       "request": null,
       "expected": 401,
       "status": 401,
-      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Sun, 01 Nov 2026 12:38:06 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Mon, 02 Nov 2026 08:23:15 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "error": "Authentication required"
       }
@@ -24,7 +24,7 @@
       },
       "expected": 401,
       "status": 401,
-      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Sun, 01 Nov 2026 12:38:06 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer\nContent-Type: application/json; charset=utf-8\nContent-Length: 35\nETag: W/\"23-5acMW0iwqotvKDNixkkFKwa08HY\"\nDate: Mon, 02 Nov 2026 08:23:15 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "error": "Authentication required"
       }
@@ -38,7 +38,7 @@
       },
       "expected": 200,
       "status": 200,
-      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=4; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 327\nETag: W/\"147-j0x+2BvwfkusArRoDTFs6UQkIT4\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=4; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 374\nETag: W/\"176-5ugvQpRMn1+tBlmkWox4n7PBs0Y\"\nDate: Mon, 02 Nov 2026 08:23:15 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "access_token": "<REDACTED: ephemeral JWT>",
         "token_type": "Bearer",
@@ -54,7 +54,7 @@
       },
       "expected": 401,
       "status": 401,
-      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=3; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=3; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "error": "Invalid username or password"
       }
@@ -68,7 +68,7 @@
       },
       "expected": 401,
       "status": 401,
-      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=2; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=2; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-iHGTIv7noT3UMayYgBivAszwTgE\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "error": "Invalid username or password"
       }
@@ -79,7 +79,7 @@
       "request": null,
       "expected": 401,
       "status": 401,
-      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer error=\"invalid_token\"\nContent-Type: application/json; charset=utf-8\nContent-Length: 36\nETag: W/\"24-GNDyEGK1yBKJB1sFHYU2n5ZGC54\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 401 Unauthorized\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nWWW-Authenticate: Bearer error=\"invalid_token\"\nContent-Type: application/json; charset=utf-8\nContent-Length: 36\nETag: W/\"24-GNDyEGK1yBKJB1sFHYU2n5ZGC54\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "error": "Invalid or expired token"
       }
@@ -93,7 +93,7 @@
       },
       "expected": 201,
       "status": 201,
-      "headers": "HTTP/1.1 201 Created\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 84\nETag: W/\"54-v2OyGCfpbWadTlqF3iadVG5t7I0\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 201 Created\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 84\nETag: W/\"54-v2OyGCfpbWadTlqF3iadVG5t7I0\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "data": {
           "id": 1,
@@ -108,7 +108,7 @@
       "request": null,
       "expected": 200,
       "status": 200,
-      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 86\nETag: W/\"56-P2Av/gQ20GspmTTIH1GbxxR1rtw\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 86\nETag: W/\"56-P2Av/gQ20GspmTTIH1GbxxR1rtw\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "data": [
           {
@@ -128,7 +128,7 @@
       },
       "expected": 200,
       "status": 200,
-      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=1; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 327\nETag: W/\"147-eZcEYA0A8rqUT8rvGUnF4vmvQGY\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nRateLimit: \"5-in-1min\"; r=1; t=60\nRateLimit-Policy: \"5-in-1min\"; q=5; w=60; pk=:MTJjYTE3YjQ5YWYy:\nContent-Type: application/json; charset=utf-8\nContent-Length: 374\nETag: W/\"176-IUa39z77GVnLkR0cR0jeUw3sPDw\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "access_token": "<REDACTED: ephemeral JWT>",
         "token_type": "Bearer",
@@ -141,9 +141,31 @@
       "request": null,
       "expected": 200,
       "status": 200,
-      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 11\nETag: W/\"b-EFAlOux7Kcr/ZEgGkn2r+oFAbu4\"\nDate: Sun, 01 Nov 2026 12:38:07 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "headers": "HTTP/1.1 200 OK\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 11\nETag: W/\"b-EFAlOux7Kcr/ZEgGkn2r+oFAbu4\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
       "response": {
         "data": []
+      }
+    },
+    {
+      "label": "Unsupported JSON charset",
+      "command": "curl -i -X POST -H 'Content-Type: application/json; charset=iso-8859-1' --data-binary @- http://127.0.0.1:3001/auth/login",
+      "request": {},
+      "expected": 415,
+      "status": 415,
+      "headers": "HTTP/1.1 415 Unsupported Media Type\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 36\nETag: W/\"24-lfYus1z5aX84GuXjqCd0+ZLNk/A\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Unsupported JSON charset"
+      }
+    },
+    {
+      "label": "Unsupported content encoding",
+      "command": "curl -i -X POST -H 'Content-Type: application/json' --data-binary @- -H 'Content-Encoding: unsupported' http://127.0.0.1:3001/auth/login",
+      "request": {},
+      "expected": 415,
+      "status": 415,
+      "headers": "HTTP/1.1 415 Unsupported Media Type\nContent-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Resource-Policy: same-origin\nOrigin-Agent-Cluster: ?1\nReferrer-Policy: no-referrer\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff\nX-DNS-Prefetch-Control: off\nX-Download-Options: noopen\nX-Frame-Options: SAMEORIGIN\nX-Permitted-Cross-Domain-Policies: none\nX-XSS-Protection: 0\nCache-Control: no-store\nContent-Type: application/json; charset=utf-8\nContent-Length: 40\nETag: W/\"28-zKSXYwVsKFaAGgueOgCNyg5j8UA\"\nDate: Mon, 02 Nov 2026 08:23:16 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5",
+      "response": {
+        "error": "Unsupported content encoding"
       }
     }
   ]
