@@ -42,7 +42,7 @@ def main():
                     raise RuntimeError("Server startup timed out")
                 records = []
 
-                def curl(label, method, path, expected, payload=None, token=None):
+                def curl(label, method, path, expected, payload=None, token=None, content_type="application/json", extra_headers=None):
                     url = "http://127.0.0.1:3001" + path
                     args = ["curl", "--silent", "--show-error", "--max-time", "10", "-i", "-X", method]
                     display = ["curl -i", "-X " + method]
@@ -50,8 +50,11 @@ def main():
                         args += ["-H", "Authorization: Bearer " + token]
                         display += ["-H 'Authorization: Bearer <REDACTED>'"]
                     if payload is not None:
-                        args += ["-H", "Content-Type: application/json", "--data-binary", "@-"]
-                        display += ["-H 'Content-Type: application/json' --data-binary @-"]
+                        args += ["-H", "Content-Type: " + content_type, "--data-binary", "@-"]
+                        display += ["-H 'Content-Type: " + content_type + "' --data-binary @-"]
+                    for name, value in (extra_headers or {}).items():
+                        args += ["-H", name + ": " + value]
+                        display += ["-H '" + name + ": " + value + "'"]
                     args.append(url)
                     display.append(url)
                     raw = subprocess.run(args, input=None if payload is None else json.dumps(payload),
@@ -91,6 +94,10 @@ def main():
                 other = curl("Second user cannot read first user note", "GET", "/api/data", 200,
                              token=second["access_token"])
                 assert other["data"] == []
+                curl("Unsupported JSON charset", "POST", "/auth/login", 415,
+                     {}, content_type="application/json; charset=iso-8859-1")
+                curl("Unsupported content encoding", "POST", "/auth/login", 415,
+                     {}, extra_headers={"Content-Encoding": "unsupported"})
                 result = dict(captured_at=datetime.now(timezone.utc).isoformat(),
                               node=subprocess.check_output(["node", "--version"], text=True).strip(),
                               passed=len(records), failed=0, records=records)

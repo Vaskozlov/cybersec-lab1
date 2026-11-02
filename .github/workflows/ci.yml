@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   tests-and-sast:
     name: API tests and SAST
@@ -25,15 +29,21 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Test API and attack scenarios
+        id: tests
         run: |
           mkdir -p reports
           npm test 2>&1 | tee reports/tests.txt
       - name: SAST - ESLint security rules
+        id: sast
         run: |
           npm run sast
           npx --no-install eslint src scripts --max-warnings 0 -f json -o reports/eslint.json
+          npx --no-install eslint src scripts --max-warnings 0 -f html -o reports/eslint.html
       - name: Publish security summary
         if: always()
+        env:
+          TEST_OUTCOME: ${{ steps.tests.outcome }}
+          SAST_OUTCOME: ${{ steps.sast.outcome }}
         run: node scripts/ci-summary.js sast
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
@@ -58,6 +68,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Audit all npm dependencies, including development tools
+        id: npm-audit
         run: |
           mkdir -p reports
           npm audit --audit-level=high --json > reports/npm-audit.json
@@ -74,6 +85,7 @@ jobs:
           echo '44d920d1ec03e948df862a253f0912782a31b9beee8a7c8895b9cb95760176ed  '"$RUNNER_TEMP/odc.zip" | sha256sum --check
           unzip -q "$RUNNER_TEMP/odc.zip" -d "$RUNNER_TEMP/odc"
       - name: SCA - scan lockfile with npm advisory and NVD data
+        id: dependency-check
         run: |
           "$RUNNER_TEMP/odc/dependency-check/bin/dependency-check.sh" \
             --project cybersec-lab1 \
@@ -85,6 +97,9 @@ jobs:
             --failOnCVSS 7
       - name: Publish security summary
         if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.npm-audit.outcome }}
+          ODC_OUTCOME: ${{ steps.dependency-check.outcome }}
         run: node scripts/ci-summary.js sca
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()

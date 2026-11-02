@@ -29,8 +29,8 @@ export async function createApp({ db, jwtSecret, loginLimit = 5 }) {
   });
   app.use(express.json({ limit: '16kb', strict: true }));
   const dummyHash = await hashPassword(randomUUID());
-  const findUser = db.prepare('SELECT id, password_hash FROM users WHERE username = ?');
-  const userExists = db.prepare('SELECT id FROM users WHERE id = ?');
+  const findUser = db.prepare('SELECT account_id, password_hash FROM users WHERE username = ?');
+  const findAccount = db.prepare('SELECT id FROM users WHERE account_id = ?');
   const listNotes = db.prepare(
     'SELECT id, title, body FROM notes WHERE owner_id = ? ORDER BY id DESC LIMIT 100',
   );
@@ -58,7 +58,7 @@ export async function createApp({ db, jwtSecret, loginLimit = 5 }) {
     }
     const token = await new SignJWT({})
       .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
-      .setSubject(String(user.id)).setIssuer(ISSUER).setAudience(AUDIENCE)
+      .setSubject(user.account_id).setIssuer(ISSUER).setAudience(AUDIENCE)
       .setIssuedAt().setExpirationTime(`${TOKEN_SECONDS}s`).setJti(randomUUID())
       .sign(jwtSecret);
     return res.json({ access_token: token, token_type: 'Bearer', expires_in: TOKEN_SECONDS });
@@ -77,9 +77,12 @@ export async function createApp({ db, jwtSecret, loginLimit = 5 }) {
         requiredClaims: ['sub', 'iat', 'exp', 'iss', 'aud', 'jti'],
         maxTokenAge: `${TOKEN_SECONDS}s`,
       });
-      if (!/^[1-9][0-9]*$/.test(payload.sub ?? '')
-          || !userExists.get(payload.sub)) throw new Error('Unknown user');
-      res.locals.userId = payload.sub;
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(payload.sub ?? '')) {
+        throw new Error('Invalid account identifier');
+      }
+      const user = findAccount.get(payload.sub);
+      if (!user) throw new Error('Unknown user');
+      res.locals.userId = user.id;
       return next();
     } catch {
       res.set('WWW-Authenticate', 'Bearer error="invalid_token"');
@@ -105,6 +108,8 @@ export async function createApp({ db, jwtSecret, loginLimit = 5 }) {
   app.use((err, _req, res, _next) => {
     if (err.type === 'entity.too.large') return res.status(413).json({ error: 'Payload too large' });
     if (err.type === 'entity.parse.failed') return res.status(400).json({ error: 'Invalid JSON' });
+    if (err.type === 'charset.unsupported') return res.status(415).json({ error: 'Unsupported JSON charset' });
+    if (err.type === 'encoding.unsupported') return res.status(415).json({ error: 'Unsupported content encoding' });
     return res.status(500).json({ error: 'Internal server error' });
   });
   return app;

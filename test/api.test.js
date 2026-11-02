@@ -1,32 +1,38 @@
 import test, { before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { once } from 'node:events';
-import { SignJWT } from 'jose';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
+import { SignJWT, jwtVerify } from 'jose';
 import { openDatabase } from '../src/database.js';
 import { hashPassword, verifyPassword } from '../src/passwords.js';
 import { createApp, ISSUER, AUDIENCE } from '../src/app.js';
 
 const secret = randomBytes(32);
 const password = randomBytes(18).toString('base64url');
+const aliceAccountId = randomUUID();
 const db = openDatabase(':memory:');
 let server, base, aliceToken, bobToken, passwordHash;
-async function request(path, { token, method = 'GET', body, raw } = {}) {
-  const response = await fetch(`${base}${path}`, {
+async function request(path, { token, method = 'GET', body, raw, headers = {}, origin = base } = {}) {
+  const response = await fetch(`${origin}${path}`, {
     method,
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(body !== undefined || raw !== undefined ? { 'Content-Type': 'application/json' } : {}),
+      ...headers,
     },
     body: raw ?? (body === undefined ? undefined : JSON.stringify(body)),
   });
   return { status: response.status, headers: response.headers, json: await response.json() };
 }
-const login = (username, suppliedPassword = password) => request('/auth/login', {
-  method: 'POST', body: { username, password: suppliedPassword },
+const login = (username, suppliedPassword = password, origin = base) => request('/auth/login', {
+  method: 'POST', body: { username, password: suppliedPassword }, origin,
 });
 async function customToken({ key = secret, algorithm = 'HS256', claims = {}, omitExp = false } = {}) {
-  const jwt = new SignJWT({ sub: '1', iss: ISSUER, aud: AUDIENCE, jti: 'test', ...claims })
+  const jwt = new SignJWT({ sub: aliceAccountId, iss: ISSUER, aud: AUDIENCE, jti: 'test', ...claims })
     .setProtectedHeader({ alg: algorithm, typ: 'JWT' }).setIssuedAt();
   if (!omitExp) jwt.setExpirationTime(claims.exp ?? '15m');
   return jwt.sign(key);
@@ -34,9 +40,9 @@ async function customToken({ key = secret, algorithm = 'HS256', claims = {}, omi
 
 before(async () => {
   passwordHash = await hashPassword(password);
-  const insert = db.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)');
-  insert.run('alice', passwordHash);
-  insert.run('bob', await hashPassword(password));
+  const insert = db.prepare('INSERT INTO users (account_id, username, password_hash) VALUES (?, ?, ?)');
+  insert.run(aliceAccountId, 'alice', passwordHash);
+  insert.run(randomUUID(), 'bob', await hashPassword(password));
   const app = await createApp({ db, jwtSecret: secret, loginLimit: 100 });
   server = app.listen(0, '127.0.0.1');
   await once(server, 'listening');
@@ -59,6 +65,9 @@ test('valid login returns a Bearer token with a 15 minute lifetime', async () =>
   assert.equal(result.json.token_type, 'Bearer');
   assert.equal(result.json.expires_in, 900);
   assert.equal(result.json.access_token.split('.').length, 3);
+  const { payload } = await jwtVerify(result.json.access_token, secret, { algorithms: ['HS256'] });
+  assert.equal(payload.sub, aliceAccountId);
+  assert.equal(payload.exp - payload.iat, 900);
 });
 test('wrong password and unknown username return identical 401 responses', async () => {
   const wrong = await login('alice', 'incorrect');
@@ -118,12 +127,12 @@ test('malformed, forged, expired and wrong-algorithm tokens are rejected', async
 test('wrong issuer/audience, missing expiry and nonexistent user are rejected', async () => {
   for (const options of [
     { claims: { iss: 'another-service' } }, { claims: { aud: 'another-client' } },
-    { omitExp: true }, { claims: { sub: '99999' } },
+    { omitExp: true }, { claims: { sub: randomUUID() } }, { claims: { sub: '1' } },
   ]) assert.equal((await request('/api/data', { token: await customToken(options) })).status, 401);
 });
 test('unsigned alg=none tokens are rejected', async () => {
   const part = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
-  const token = `${part({ alg: 'none' })}.${part({ sub: '1' })}.`;
+  const token = `${part({ alg: 'none' })}.${part({ sub: aliceAccountId })}.`;
   assert.equal((await request('/api/data', { token })).status, 401);
 });
 test('invalid JSON, types and oversized payloads produce bounded JSON errors', async () => {
@@ -131,6 +140,17 @@ test('invalid JSON, types and oversized payloads produce bounded JSON errors', a
   assert.equal((await request('/auth/login', { method: 'POST', body: { username: {}, password } })).status, 400);
   assert.equal((await request('/api/data', { method: 'POST', token: aliceToken, body: { title: '', body: '' } })).status, 400);
   assert.equal((await request('/api/data', { method: 'POST', token: aliceToken, body: { title: 'Title', body: 'a'.repeat(17000) } })).status, 413);
+});
+test('unsupported JSON charset and content encoding return sanitized 415 errors', async () => {
+  for (const [headers, error] of [
+    [{ 'Content-Type': 'application/json; charset=iso-8859-1' }, 'Unsupported JSON charset'],
+    [{ 'Content-Encoding': 'unsupported' }, 'Unsupported content encoding'],
+  ]) {
+    const result = await request('/auth/login', { method: 'POST', raw: '{}', headers });
+    assert.equal(result.status, 415);
+    assert.deepEqual(result.json, { error });
+    assert.match(result.headers.get('content-type'), /^application\/json/);
+  }
 });
 test('security response headers and JSON content type are present', async () => {
   const { headers } = await request('/api/data', { token: aliceToken });
@@ -159,4 +179,130 @@ test('login rate limiter returns 429 when the attempt budget is exhausted', asyn
 });
 test('application refuses a missing or short signing key', async () => {
   await assert.rejects(createApp({ db, jwtSecret: Buffer.alloc(8) }), /32 random bytes/);
+});
+test('deleted account tokens stay invalid when a new account reuses its numeric ID', async () => {
+  const insert = db.prepare('INSERT INTO users (account_id, username, password_hash) VALUES (?, ?, ?)');
+  const formerAccountId = randomUUID();
+  const formerId = Number(insert.run(formerAccountId, 'former-user', passwordHash).lastInsertRowid);
+  try {
+    const formerToken = (await login('former-user')).json.access_token;
+    db.prepare('DELETE FROM users WHERE id = ?').run(formerId);
+    assert.equal((await request('/api/data', { token: formerToken })).status, 401);
+    const replacementPassword = randomBytes(18).toString('base64url');
+    const replacementAccountId = randomUUID();
+    const replacementId = Number(insert.run(
+      replacementAccountId, 'replacement-user', await hashPassword(replacementPassword),
+    ).lastInsertRowid);
+    assert.equal(replacementId, formerId);
+    assert.notEqual(replacementAccountId, formerAccountId);
+    const replacementToken = (await login('replacement-user', replacementPassword)).json.access_token;
+    const created = await request('/api/data', {
+      method: 'POST', token: replacementToken, body: { title: 'Private replacement note', body: 'Secret' },
+    });
+    assert.equal(created.status, 201);
+    assert.equal((await request('/api/data', { token: formerToken })).status, 401);
+    assert.equal((await request('/api/data', {
+      method: 'POST', token: formerToken, body: { title: 'Forbidden', body: '' },
+    })).status, 401);
+    assert.deepEqual((await request('/api/data', { token: replacementToken })).json.data, [created.json.data]);
+  } finally {
+    db.prepare('DELETE FROM notes WHERE owner_id = ?').run(formerId);
+    db.prepare('DELETE FROM users WHERE id = ?').run(formerId);
+  }
+});
+test('legacy databases migrate accounts atomically while preserving notes and login', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'cybersec-lab1-migration-'));
+  const path = join(directory, 'legacy.db');
+  let migratedDb, migratedServer;
+  try {
+    const legacy = new DatabaseSync(path);
+    try {
+      legacy.exec(`
+        CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL) STRICT;
+        CREATE TABLE notes (id INTEGER PRIMARY KEY, owner_id INTEGER NOT NULL REFERENCES users(id), title TEXT NOT NULL, body TEXT NOT NULL) STRICT;
+      `);
+      const insert = legacy.prepare('INSERT INTO users (id, username, password_hash) VALUES (?, ?, ?)');
+      insert.run(7, 'legacy-user', passwordHash);
+      insert.run(9, 'other-legacy-user', passwordHash);
+      legacy.prepare('INSERT INTO notes (id, owner_id, title, body) VALUES (?, ?, ?, ?)')
+        .run(21, 7, 'Legacy title', '<legacy>');
+      legacy.prepare('INSERT INTO notes (id, owner_id, title, body) VALUES (?, ?, ?, ?)')
+        .run(22, 9, 'Another user', 'Private');
+    } finally { legacy.close(); }
+    migratedDb = openDatabase(path);
+    const users = migratedDb.prepare('SELECT id, account_id, username, password_hash FROM users ORDER BY id').all();
+    assert.deepEqual(users.map((user) => user.id), [7, 9]);
+    assert.notEqual(users[0].account_id, users[1].account_id);
+    for (const user of users) {
+      assert.match(user.account_id, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+      assert.equal(user.password_hash, passwordHash);
+    }
+    assert.equal(migratedDb.prepare('PRAGMA foreign_keys').get().foreign_keys, 1);
+    assert.equal(migratedDb.prepare('PRAGMA foreign_key_list(notes)').get().table, 'users');
+    assert.deepEqual(migratedDb.prepare('PRAGMA foreign_key_check').all(), []);
+    assert.throws(() => migratedDb.prepare('UPDATE users SET account_id = ? WHERE id = ?').run(randomUUID(), 7), /immutable/);
+    assert.throws(() => migratedDb.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run('missing-id', passwordHash), /NOT NULL/);
+    assert.throws(() => migratedDb.prepare('INSERT INTO users (account_id, username, password_hash) VALUES (?, ?, ?)')
+      .run(users[0].account_id, 'duplicate-id', passwordHash), /UNIQUE/);
+    const app = await createApp({ db: migratedDb, jwtSecret: secret });
+    migratedServer = app.listen(0, '127.0.0.1');
+    await once(migratedServer, 'listening');
+    const origin = `http://127.0.0.1:${migratedServer.address().port}`;
+    const oldNumericToken = await customToken({ claims: { sub: '7' } });
+    assert.equal((await request('/api/data', { origin, token: oldNumericToken })).status, 401);
+    const loginResult = await login('legacy-user', password, origin);
+    assert.equal(loginResult.status, 200);
+    const token = loginResult.json.access_token;
+    const { payload } = await jwtVerify(token, secret, { algorithms: ['HS256'] });
+    assert.equal(payload.sub, users[0].account_id);
+    assert.deepEqual((await request('/api/data', { origin, token })).json.data, [
+      { id: 21, title: 'Legacy title', body: '&lt;legacy&gt;' },
+    ]);
+    const created = await request('/api/data', { origin, token, method: 'POST', body: { title: 'After migration', body: '' } });
+    assert.equal(created.status, 201);
+    assert.equal(migratedDb.prepare('SELECT owner_id FROM notes WHERE id = ?').get(created.json.data.id).owner_id, 7);
+    await new Promise((resolve) => migratedServer.close(resolve));
+    migratedServer = undefined;
+    migratedDb.close();
+    migratedDb = undefined;
+    migratedDb = openDatabase(path);
+    assert.deepEqual(migratedDb.prepare('SELECT id, account_id, username, password_hash FROM users ORDER BY id').all(), users);
+    assert.equal(migratedDb.prepare('SELECT count(*) AS total FROM notes').get().total, 3);
+  } finally {
+    if (migratedServer) await new Promise((resolve) => migratedServer.close(resolve));
+    if (migratedDb) migratedDb.close();
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+test('a failed legacy migration rolls back the schema and original data', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'cybersec-lab1-rollback-'));
+  const path = join(directory, 'legacy.db');
+  try {
+    const legacy = new DatabaseSync(path);
+    try {
+      legacy.exec(`
+        PRAGMA foreign_keys = OFF;
+        CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL) STRICT;
+        CREATE TABLE notes (id INTEGER PRIMARY KEY, owner_id INTEGER NOT NULL REFERENCES users(id), title TEXT NOT NULL, body TEXT NOT NULL) STRICT;
+        INSERT INTO notes (owner_id, title, body) VALUES (999, 'Orphan', 'Existing invalid reference');
+      `);
+      legacy.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run('original-user', passwordHash);
+    } finally { legacy.close(); }
+    assert.throws(() => openDatabase(path), /invalid foreign keys/);
+    const unchanged = new DatabaseSync(path);
+    try {
+      assert.ok(!unchanged.prepare('PRAGMA table_info(users)').all().some((column) => column.name === 'account_id'));
+      assert.equal(unchanged.prepare('PRAGMA user_version').get().user_version, 0);
+      assert.equal(unchanged.prepare('SELECT username FROM users').get().username, 'original-user');
+      assert.equal(unchanged.prepare('SELECT owner_id FROM notes').get().owner_id, 999);
+      assert.equal(unchanged.prepare("SELECT count(*) AS total FROM sqlite_schema WHERE name = 'users_migrating'").get().total, 0);
+      unchanged.exec("ALTER TABLE users ADD COLUMN custom_data TEXT; UPDATE users SET custom_data = 'Preserve me';");
+    } finally { unchanged.close(); }
+    assert.throws(() => openDatabase(path), /Unsupported legacy users schema/);
+    const extended = new DatabaseSync(path);
+    try {
+      assert.equal(extended.prepare('SELECT custom_data FROM users').get().custom_data, 'Preserve me');
+      assert.ok(!extended.prepare('PRAGMA table_info(users)').all().some((column) => column.name === 'account_id'));
+    } finally { extended.close(); }
+  } finally { await rm(directory, { recursive: true, force: true }); }
 });
